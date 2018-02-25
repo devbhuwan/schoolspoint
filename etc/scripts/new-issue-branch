@@ -37,5 +37,5 @@ echo "Stashing potential intermediate changes..." && git stash\
          git commit -am "$TICKET_ID - Prepare branch"\
          && echo "Created feature branch: $ISSUE_BRANCH"\
          && echo "Reapplying potentially stashed changes... " && git stash pop)\
-  || echo "Something went wrong!")
+  ||echo "Something went wrong!")
 
