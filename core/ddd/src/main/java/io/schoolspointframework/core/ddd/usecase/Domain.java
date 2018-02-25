@@ -3,5 +3,7 @@ package io.schoolspointframework.core.ddd.usecase;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public abstract class Domain {
+@FunctionalInterface
+public interface Domain {
+    void create();
 }
