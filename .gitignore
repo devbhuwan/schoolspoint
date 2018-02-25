@@ -3,7 +3,8 @@
 bin/
 build/
 target/
-*.i*
+*.iml
+**/.idea/**
 .classpath
 .project
 .settings
