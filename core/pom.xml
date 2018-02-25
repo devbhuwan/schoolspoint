@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>ddd</module>
-        <module>clean-code</module>
+        <module>cleancode</module>
         <module>cqrs</module>
     </modules>
 
