@@ -1,6 +1,10 @@
 package io.schoolspointframework.core.ddd.usecase;
 
+<<<<<<< HEAD
 import io.schoolspointframework.core.cleancode.usecase.UseCase;
+=======
+import io.schoolspointframework.core.clean.code.UseCase;
+>>>>>>> master
 
 /**
  * @author Bhuwan Prasad Upadhyay
