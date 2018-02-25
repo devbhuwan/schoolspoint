@@ -5,6 +5,9 @@
     <groupId>io.developerbhuwan</groupId>
     <artifactId>schoolspoint-framework</artifactId>
     <version>1.0.0.BUILD-SNAPSHOT</version>
+    <modules>
+        <module>core</module>
+    </modules>
     <packaging>pom</packaging>
 
     <name>Schoolspoint Framework</name>
