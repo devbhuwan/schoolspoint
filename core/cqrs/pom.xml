@@ -11,5 +11,13 @@
 
     <artifactId>schoolspoint-core-cqrs</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.developerbhuwan</groupId>
+            <artifactId>schoolspoint-core-cleancode</artifactId>
+            <version>1.0.0.BUILD-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
 
 </project>

@@ -15,7 +15,7 @@
         <module>ddd</module>
         <module>cleancode</module>
         <module>cqrs</module>
+        <module>ddd-runtime</module>
     </modules>
-
 
 </project>
