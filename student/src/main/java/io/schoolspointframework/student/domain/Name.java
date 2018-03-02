@@ -6,6 +6,7 @@ import io.schoolspointframework.core.ddd.ValidationError;
 import io.schoolspointframework.core.ddd.annotations.DddValueObject;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Embeddable;
 import java.util.Set;
 
 import static io.schoolspointframework.core.ddd.ValidationError.raiseIfWithMessageFormat;
@@ -16,6 +17,7 @@ import static org.apache.commons.lang3.StringUtils.*;
  */
 @DddValueObject
 @EqualsAndHashCode
+@Embeddable
 class Name {
 
     static final Name NULL = new Name(EMPTY, EMPTY, EMPTY);

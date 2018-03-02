@@ -5,6 +5,7 @@ import io.schoolspointframework.core.ddd.ValidationError;
 import io.schoolspointframework.core.ddd.annotations.DddValueObject;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Embeddable;
 import java.util.Set;
 
 import static io.schoolspointframework.core.ddd.MessageFormats.MUST_BE_NOT_NULL;
@@ -16,6 +17,7 @@ import static java.util.Objects.isNull;
  */
 @DddValueObject
 @EqualsAndHashCode
+@Embeddable
 class RollNumber {
 
     static final RollNumber NULL = new RollNumber(-1);

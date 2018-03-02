@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.Embeddable;
 import java.util.Set;
 
 import static io.schoolspointframework.core.ddd.MessageFormats.MUST_BE_NOT_BLANK;
@@ -20,6 +21,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 @DddValueObject
 @FieldDefaults(makeFinal = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Embeddable
 class Address {
 
     static final Address NULL = new Address(EMPTY, EMPTY, EMPTY, EMPTY);

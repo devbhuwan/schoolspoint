@@ -1,7 +1,6 @@
 package io.schoolspointframework.student.endpoints;
 
 import io.schoolspointframework.core.ddd.ValidationError;
-import io.schoolspointframework.student.domain.StudentInfoParameters;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Set;
@@ -18,5 +17,5 @@ public interface StudentEndpoints {
 //    List<Student> studentsByGrade(GradeRequestRepresentation grade);
 
     @PostMapping(REGISTER)
-    Set<ValidationError> registerStudent(StudentInfoParameters params);
+    Set<ValidationError> registerStudent(EndpointStudentInfoParameters params);
 }

@@ -25,7 +25,7 @@ public class RestStudentEndpointsTests extends AbstractIntegrationTests {
     @Test
     public void givenMissingStudentInfoParameterThenShouldReturnValidationErrors() {
         studentEndpoints()
-                .body("")
+                .body("{}")
                 .post(BASE_URI + REGISTER)
                 .then()
                 .statusCode(OK.value());

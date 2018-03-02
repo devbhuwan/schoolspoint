@@ -2,11 +2,15 @@ package io.schoolspointframework.student.domain;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.util.Random;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
 @RequiredArgsConstructor
+@Component
 class PlusOneOnLastSequenceRollNumberGenerator implements RollNumberGenerator {
 
 
@@ -15,6 +19,6 @@ class PlusOneOnLastSequenceRollNumberGenerator implements RollNumberGenerator {
 
     @Override
     public Integer newSequence(Grade grade) {
-        return null;
+        return new Random().nextInt();
     }
 }

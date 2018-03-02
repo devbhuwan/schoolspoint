@@ -29,7 +29,7 @@ public class ResponseError {
     }
 
     public boolean isEmpty() {
-        return this.equals(NULL);
+        return this.equals(NULL) && errors.isEmpty();
     }
 
     public ValidationError validationError(String causedBy) {

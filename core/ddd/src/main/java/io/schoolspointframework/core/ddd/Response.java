@@ -3,7 +3,7 @@ package io.schoolspointframework.core.ddd;
 
 import io.schoolspointframework.core.ddd.annotations.DddValueObject;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -39,20 +39,18 @@ public class Response<V> {
         return success(empty());
     }
 
-    public static Set<ResponseError> all(Response<?>... responses) {
+    private static Set<ResponseError> toErrors(Response<?>... responses) {
         return Stream.of(responses).map(Response::error).collect(toSet());
     }
 
-    public static Set<ValidationError> reduce(Response<?>... responses) {
-        return Stream.of(all(responses)).reduce(new HashSet<>(), (f, errs) -> errs).stream().map(ResponseError::validationErrors).reduce(new HashSet<>(), (f, errs) -> errs);
+    public static Response<Optional<Void>> all(Response<?>... responses) {
+        Set<ValidationError> errors = new LinkedHashSet<>();
+        toErrors(responses).forEach(e -> errors.addAll(e.validationErrors()));
+        return Response.failure(Optional.empty(), errors);
     }
 
     public static <V> boolean hasError(Response<V> response) {
         return hasErrors(response.error().validationErrors());
-    }
-
-    public static Response<Optional<Void>> mergeErrors(Set<ValidationError> first, Set<ValidationError> second) {
-        return Response.failure(Optional.empty(), Stream.of(first, second).reduce(new HashSet<>(), (f, errs) -> errs));
     }
 
     private boolean isValid() {

@@ -14,7 +14,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import static io.schoolspointframework.core.ddd.MessageFormats.MUST_BE_NOT_NULL;
-import static io.schoolspointframework.core.ddd.Response.reduce;
 import static io.schoolspointframework.core.ddd.ValidationError.raiseIfWithMessageFormat;
 import static java.util.Objects.isNull;
 
@@ -39,9 +38,12 @@ public class Student extends AbstractEntity<StudentIdentifier> {
         Response<Address> address = Address.create(params.getAddressName(), params.getStreet(), params.getCity(), params.getZipCode());
         Response<Grade> grade = Grade.create(GradeType.valueOfOrElseGetDefault(params.getGradeType()), params.getGroup());
         Response<RollNumber> rollNumber = RollNumber.create(grade.value(), rollNumberGenerator);
-        Response<Optional<Void>> response = Response.mergeErrors(reduce(name, address, grade, rollNumber), validateEntry(name.value(), address.value(), grade.value(), rollNumber.value()));
+        Response<Optional<Void>> response = Response.all(name, address, grade, rollNumber);
         if (Response.hasError(response))
             return Response.failure(Student.NULL, response.error().validationErrors());
+        Set<ValidationError> errors = validateEntry(name.value(), address.value(), grade.value(), rollNumber.value());
+        if (ValidationError.hasErrors(errors))
+            return Response.failure(Student.NULL, errors);
         return Response.success(new Student(name.value(), address.value(), grade.value(), rollNumber.value()));
     }
 

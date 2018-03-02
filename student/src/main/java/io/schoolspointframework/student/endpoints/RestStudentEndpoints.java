@@ -1,7 +1,6 @@
 package io.schoolspointframework.student.endpoints;
 
 import io.schoolspointframework.core.ddd.ValidationError;
-import io.schoolspointframework.student.domain.StudentInfoParameters;
 import io.schoolspointframework.student.usecase.RegisterApplicantUseCase;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,7 @@ public class RestStudentEndpoints implements StudentEndpoints {
     RegisterApplicantUseCase registerApplicantUseCase;
 
     @Override
-    public Set<ValidationError> registerStudent(StudentInfoParameters params) {
+    public Set<ValidationError> registerStudent(EndpointStudentInfoParameters params) {
         return registerApplicantUseCase.execute(params).error().validationErrors();
     }
 
