@@ -32,7 +32,7 @@ public class Response<V> {
     }
 
     public static <V> Response<V> failure(V value, Set<ValidationError> errors) {
-        return new Response<V>(value, new ResponseError(errors));
+        return new Response<>(value, new ResponseError(errors));
     }
 
     public static Response<Optional<Void>> success() {

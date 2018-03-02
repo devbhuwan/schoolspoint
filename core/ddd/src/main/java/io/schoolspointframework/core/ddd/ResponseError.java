@@ -20,7 +20,7 @@ public class ResponseError {
     public static final ResponseError NULL = new ResponseError(emptySet());
     private final Set<ValidationError> errors;
 
-    public ResponseError(Set<ValidationError> errors) {
+    ResponseError(Set<ValidationError> errors) {
         this.errors = unmodifiableSet(errors);
     }
 
