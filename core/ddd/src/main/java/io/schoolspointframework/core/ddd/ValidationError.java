@@ -15,7 +15,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(exclude = "message")
-@Getter(AccessLevel.PACKAGE)
+@Getter
 @DddValueObject
 public class ValidationError implements Comparable<ValidationError> {
     public static final ValidationError NULL = new ValidationError(EMPTY, EMPTY);

@@ -1,8 +1,10 @@
 package io.schoolspointframework.student.endpoints;
 
 import io.restassured.RestAssured;
+import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.schoolspointframework.Schoolspoint;
+import io.schoolspointframework.core.ddd.Response;
 import io.schoolspointframework.student.AbstractIntegrationTests;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,18 +26,13 @@ public class RestStudentEndpointsTests extends AbstractIntegrationTests {
 
     @Test
     public void givenMissingStudentInfoParameterThenShouldReturnValidationErrors() {
-        studentEndpoints()
-                .body("{}")
-                .post(BASE_URI + REGISTER)
-                .then()
-                .statusCode(OK.value());
-
+        ValidatableResponse validatableResponse = studentEndpoints().body("{}").post(BASE_URI + REGISTER).then();
+        validatableResponse.statusCode(OK.value());
+        String s = validatableResponse.extract().response().asString();
     }
 
     public RequestSpecification studentEndpoints() {
-        return RestAssured
-                .with()
-                .port(serverPort);
-
+        return RestAssured.with().port(serverPort);
     }
+
 }

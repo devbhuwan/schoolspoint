@@ -23,8 +23,9 @@ public class RegisterApplicantUseCase implements DddUseCase<StudentInfoParameter
 
     @Override
     public Response<Optional<Void>> execute(StudentInfoParameters params) {
-        Student.create(params, rollNumberGenerator)
-                .onSuccess(studentManager::save);
+        Response<Student> response = Student.create(params, rollNumberGenerator).onSuccess(studentManager::save);
+        if (Response.hasError(response))
+            return Response.failure(Optional.empty(), response.error().validationErrors());
         return Response.success();
     }
 }

@@ -12,9 +12,6 @@ public interface StudentEndpoints {
 
     String BASE_URI = "/students";
     String REGISTER = "/register";
-    //
-//    @GetMapping
-//    List<Student> studentsByGrade(GradeRequestRepresentation grade);
 
     @PostMapping(REGISTER)
     Set<ValidationError> registerStudent(EndpointStudentInfoParameters params);
