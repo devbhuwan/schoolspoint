@@ -1,1 +1,1 @@
-# schoolspoint
+# schoolspoint [![Build Status](https://travis-ci.org/devbhuwan/schoolspoint.svg?branch=master)](https://travis-ci.org/devbhuwan/schoolspoint)
