@@ -5,6 +5,7 @@ import io.schoolspointframework.core.ddd.ValidationError;
 import io.schoolspointframework.core.ddd.annotations.DddValueObject;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Embeddable;
@@ -21,6 +22,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 @DddValueObject
 @FieldDefaults(makeFinal = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(force = true, access = AccessLevel.PACKAGE)
 @Embeddable
 class Address {
 

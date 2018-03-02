@@ -3,7 +3,10 @@ package io.schoolspointframework.student.domain;
 import io.schoolspointframework.core.ddd.Response;
 import io.schoolspointframework.core.ddd.ValidationError;
 import io.schoolspointframework.core.ddd.annotations.DddValueObject;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 import java.util.Set;
@@ -18,14 +21,12 @@ import static java.util.Objects.isNull;
 @DddValueObject
 @EqualsAndHashCode
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor(force = true, access = AccessLevel.PACKAGE)
 class RollNumber {
 
     static final RollNumber NULL = new RollNumber(-1);
     private Integer sequence;
-
-    private RollNumber(Integer sequence) {
-        this.sequence = sequence;
-    }
 
     static Response<RollNumber> create(Grade grade, RollNumberGenerator generator) {
         Integer newSequence = generator.newSequence(grade);

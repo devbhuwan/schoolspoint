@@ -1,12 +1,12 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.AbstractEntity;
 import io.schoolspointframework.core.ddd.Response;
 import io.schoolspointframework.core.ddd.ValidationError;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -25,7 +25,7 @@ import static java.util.Objects.isNull;
 @Entity
 @Table(name = "STUDENTS")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Student extends AbstractEntity<StudentIdentifier> {
+public class Student extends AbstractPersistable<Long> {
 
     static final Student NULL = new Student(Name.NULL, Address.NULL, Grade.NULL, RollNumber.NULL);
     private final Name name;

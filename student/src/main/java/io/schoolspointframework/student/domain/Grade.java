@@ -2,7 +2,9 @@ package io.schoolspointframework.student.domain;
 
 import io.schoolspointframework.core.ddd.Response;
 import io.schoolspointframework.core.ddd.annotations.DddValueObject;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 import java.util.Objects;
@@ -16,6 +18,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 @DddValueObject
 @EqualsAndHashCode
 @Embeddable
+@NoArgsConstructor(force = true, access = AccessLevel.PACKAGE)
 class Grade {
 
     public static final Grade NULL = new Grade(GradeType.NURSERY, EMPTY);

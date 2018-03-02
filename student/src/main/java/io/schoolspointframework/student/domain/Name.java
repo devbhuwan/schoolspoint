@@ -4,7 +4,10 @@ import io.schoolspointframework.core.ddd.MessageFormats;
 import io.schoolspointframework.core.ddd.Response;
 import io.schoolspointframework.core.ddd.ValidationError;
 import io.schoolspointframework.core.ddd.annotations.DddValueObject;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 import java.util.Set;
@@ -18,18 +21,14 @@ import static org.apache.commons.lang3.StringUtils.*;
 @DddValueObject
 @EqualsAndHashCode
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor(force = true, access = AccessLevel.PACKAGE)
 class Name {
 
     static final Name NULL = new Name(EMPTY, EMPTY, EMPTY);
     private String firstName;
     private String middleName;
     private String lastName;
-
-    private Name(String firstName, String middleName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-    }
 
     static Response<Name> create(String firstName, String middleName, String lastName) {
         Set<ValidationError> errors = validateEntry(firstName, lastName);
