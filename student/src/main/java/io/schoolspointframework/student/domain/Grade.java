@@ -23,11 +23,11 @@ class Grade {
 
     public static final Grade NULL = new Grade(GradeType.NURSERY, EMPTY);
     private GradeType gradeType;
-    private String gradeGroup;
+    private String group;
 
-    private Grade(GradeType gradeType, String gradeGroup) {
+    private Grade(GradeType gradeType, String group) {
         this.gradeType = Objects.isNull(gradeType) ? GradeType.NURSERY : gradeType;
-        this.gradeGroup = isBlank(gradeGroup) ? EMPTY : gradeGroup;
+        this.group = isBlank(group) ? EMPTY : group;
     }
 
     public static Response<Grade> create(GradeType gradeType, String group) {

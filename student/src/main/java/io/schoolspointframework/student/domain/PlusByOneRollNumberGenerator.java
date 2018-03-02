@@ -4,8 +4,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Random;
-
 /**
  * @author Bhuwan Prasad Upadhyay
  */
@@ -14,10 +12,14 @@ import java.util.Random;
 class PlusByOneRollNumberGenerator implements RollNumberGenerator {
 
     private final @NonNull
-    StudentRepository<Student> studentRepository;
+    StudentRepository studentRepository;
 
     @Override
     public Integer newSequence(Grade grade) {
-        return new Random().nextInt();
+        return studentRepository
+                .findFirstByGradeOrderByRollNumberDesc(grade)
+                .map(Student::getRollNumber)
+                .orElse(RollNumber.START).plusOne();
     }
+
 }

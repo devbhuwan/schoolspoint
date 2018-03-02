@@ -18,7 +18,7 @@ import java.util.Optional;
 class PersistentStudentManager<T extends Student> implements StudentManager<Student> {
 
     private final @NonNull
-    StudentRepository<Student> studentRepository;
+    StudentRepository studentRepository;
 
     @Override
     public Student save(Student student) {

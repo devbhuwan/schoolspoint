@@ -1,10 +1,15 @@
 package io.schoolspointframework.student.domain;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
 public class RollNumberUnitTests {
+
+    @Test
+    public void plusOneGuaranteedSameRollNumberNotBeingGeneratedOnConcurrentAccess() {
+
+    }
 
 }
