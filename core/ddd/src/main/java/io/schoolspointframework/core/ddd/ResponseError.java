@@ -28,7 +28,7 @@ public class ResponseError {
         return errors;
     }
 
-    public boolean hasNoError() {
+    public boolean isEmpty() {
         return this.equals(NULL);
     }
 

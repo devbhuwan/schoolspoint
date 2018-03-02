@@ -6,6 +6,7 @@ import io.schoolspointframework.core.ddd.annotations.DddValueObject;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import static io.schoolspointframework.core.ddd.ValidationError.hasErrors;
@@ -55,7 +56,7 @@ public class Response<V> {
     }
 
     private boolean isValid() {
-        return error.hasNoError();
+        return error.isEmpty();
     }
 
     public V value() {
@@ -64,5 +65,15 @@ public class Response<V> {
 
     public ResponseError error() {
         return error;
+    }
+
+    public Response<V> onSuccess(Function<V, V> save) {
+        if (isValid())
+            save.apply((V) save);
+        return _this();
+    }
+
+    private Response<V> _this() {
+        return this;
     }
 }

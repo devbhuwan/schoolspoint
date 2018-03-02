@@ -1,4 +1,4 @@
-package io.schoolspointframework.student;
+package io.schoolspointframework.core.jpa;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -8,4 +8,5 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 public abstract class AbstractIntegrationTests {
+
 }
