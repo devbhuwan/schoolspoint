@@ -12,7 +12,7 @@
     <artifactId>schoolspoint-core-ddd-runtime</artifactId>
 
     <properties>
-        <agent.class>io.schoolspointframework.core.ddd.runtime.agent.DddJavassistAgentAutoConfiguration</agent.class>
+        <agent.class>io.schoolspointframework.core.ddd.runtime.DddJavassistAgentAutoConfiguration</agent.class>
     </properties>
 
     <dependencies>
@@ -62,6 +62,27 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>as</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skipTests>false</skipTests>
+                            <argLine>
+                                -javaagent:${project.build.directory}/${project.artifactId}-${project.version}.jar
+                            </argLine>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
