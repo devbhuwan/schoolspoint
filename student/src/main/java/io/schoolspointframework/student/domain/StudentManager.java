@@ -10,9 +10,9 @@ import java.util.Optional;
 public interface StudentManager<T extends Student> {
     T save(T student);
 
-    Optional<T> get(StudentIdentifier studentIdentifier);
+    Optional<T> get(Long studentIdentifier);
 
-    boolean contains(StudentIdentifier studentIdentifier);
+    boolean contains(Long studentIdentifier);
 
     void getByRollNumber(RollNumber rollNumber);
 

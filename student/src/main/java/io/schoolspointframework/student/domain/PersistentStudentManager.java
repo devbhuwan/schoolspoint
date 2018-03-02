@@ -27,13 +27,13 @@ class PersistentStudentManager<T extends Student> implements StudentManager<Stud
     }
 
     @Override
-    public Optional<Student> get(StudentIdentifier studentIdentifier) {
+    public Optional<Student> get(Long studentIdentifier) {
         Assert.notNull(studentIdentifier, "studentIdentifier must not be null");
         return studentRepository.findById(studentIdentifier);
     }
 
     @Override
-    public boolean contains(StudentIdentifier studentIdentifier) {
+    public boolean contains(Long studentIdentifier) {
         Assert.notNull(studentIdentifier, "studentIdentifier must not be null");
         return studentRepository.existsById(studentIdentifier);
     }

@@ -1,14 +1,16 @@
 package io.schoolspointframework.student.domain;
 
 import io.schoolspointframework.student.AbstractIntegrationTests;
-import io.schoolspointframework.student.domain.Student;
-import io.schoolspointframework.student.domain.StudentManager;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
+@DataJpaTest
+@ComponentScan(basePackageClasses = StudentManager.class)
 public class StudentManagerTests extends AbstractIntegrationTests {
 
     @Autowired

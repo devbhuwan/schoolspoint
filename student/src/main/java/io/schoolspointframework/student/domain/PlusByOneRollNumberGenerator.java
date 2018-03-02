@@ -11,8 +11,7 @@ import java.util.Random;
  */
 @RequiredArgsConstructor
 @Component
-class PlusOneOnLastSequenceRollNumberGenerator implements RollNumberGenerator {
-
+class PlusByOneRollNumberGenerator implements RollNumberGenerator {
 
     private final @NonNull
     StudentRepository<Student> studentRepository;
