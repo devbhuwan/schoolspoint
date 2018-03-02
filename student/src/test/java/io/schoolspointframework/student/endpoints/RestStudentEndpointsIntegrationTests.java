@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.OK;
  * @author Bhuwan Prasad Upadhyay
  */
 @SpringBootTest(classes = Schoolspoint.class, webEnvironment = RANDOM_PORT)
-public class RestStudentEndpointsTests extends AbstractIntegrationTests {
+public class RestStudentEndpointsIntegrationTests extends AbstractIntegrationTests {
 
     @LocalServerPort
     private int serverPort;

@@ -35,7 +35,6 @@ public class StudentUnitTests {
         assertThat(studentResponse.value())
                 .hasFieldOrPropertyWithValue("name", Name.NULL)
                 .hasFieldOrPropertyWithValue("address", Address.NULL)
-                .hasFieldOrPropertyWithValue("rollNumber", RollNumber.create(Grade.NULL, ROLL_NUMBER_GENERATOR).value())
                 .hasFieldOrPropertyWithValue("grade", Grade.NULL);
         assertThat(studentResponse.error()).isNotEqualTo(ResponseError.NULL);
     }

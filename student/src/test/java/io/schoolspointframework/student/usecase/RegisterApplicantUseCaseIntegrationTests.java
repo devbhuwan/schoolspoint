@@ -14,8 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Bhuwan Prasad Upadhyay
  */
 @DataJpaTest
-@ComponentScan(basePackageClasses = Schoolspoint.class)
-public class RegisterApplicantUseCaseTests extends AbstractIntegrationTests {
+public class RegisterApplicantUseCaseIntegrationTests extends AbstractIntegrationTests {
 
     private static final FakeStudentInfoParameters INCOMPLETE_STUDENT_INFO_PARAMETERS = FakeStudentInfoParameters
             .builder().build();

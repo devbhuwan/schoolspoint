@@ -4,6 +4,7 @@ import io.schoolspointframework.core.ddd.Response;
 import io.schoolspointframework.core.ddd.annotations.DddValueObject;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
@@ -18,16 +19,17 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 @DddValueObject
 @EqualsAndHashCode
 @Embeddable
+@Getter(AccessLevel.PACKAGE)
 @NoArgsConstructor(force = true, access = AccessLevel.PACKAGE)
 class Grade {
 
     public static final Grade NULL = new Grade(GradeType.NURSERY, EMPTY);
     private GradeType gradeType;
-    private String group;
+    private String gradeGroup;
 
-    private Grade(GradeType gradeType, String group) {
+    private Grade(GradeType gradeType, String gradeGroup) {
         this.gradeType = Objects.isNull(gradeType) ? GradeType.NURSERY : gradeType;
-        this.group = isBlank(group) ? EMPTY : group;
+        this.gradeGroup = isBlank(gradeGroup) ? EMPTY : gradeGroup;
     }
 
     public static Response<Grade> create(GradeType gradeType, String group) {
