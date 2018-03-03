@@ -3,7 +3,7 @@
     <parent>
         <artifactId>schoolspoint-core</artifactId>
         <groupId>io.developerbhuwan</groupId>
-        <version>1.0.0.BUILD-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +13,7 @@
         <dependency>
             <groupId>io.developerbhuwan</groupId>
             <artifactId>schoolspoint-core-cleancode</artifactId>
-            <version>1.0.0.BUILD-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
