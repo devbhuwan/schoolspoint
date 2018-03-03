@@ -10,8 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class AddressUnitTests {
 
-    public static final Address SHORT_ADDRESS = Address.create("Lamki, Kailali", EMPTY, EMPTY, EMPTY).value();
-    public static final Address FULL_ADDRESS = Address.create("Lamki, Kailali", "Lamki Bazzar", "Lamki", "12312").value();
+    private static final Address SHORT_ADDRESS = Address.create("Lamki, Kailali", EMPTY, EMPTY, EMPTY).value();
+    private static final Address FULL_ADDRESS = Address.create("Lamki, Kailali", "Lamki Bazzar", "Lamki", "12312").value();
 
     @Test
     public void rejectsBlankName() {

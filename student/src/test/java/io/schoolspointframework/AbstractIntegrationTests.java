@@ -1,6 +1,5 @@
-package io.schoolspointframework.student;
+package io.schoolspointframework;
 
-import io.schoolspointframework.Schoolspoint;
 import org.junit.runner.RunWith;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;

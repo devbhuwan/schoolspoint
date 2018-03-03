@@ -4,7 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.schoolspointframework.Schoolspoint;
-import io.schoolspointframework.student.AbstractIntegrationTests;
+import io.schoolspointframework.AbstractIntegrationTests;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
