@@ -1,6 +1,7 @@
 package io.schoolspointframework.student.usecase;
 
 import io.schoolspointframework.core.ddd.Response;
+import io.schoolspointframework.core.ddd.event.DomainEventPublisher;
 import io.schoolspointframework.core.ddd.usecase.DddUseCase;
 import io.schoolspointframework.student.domain.RollNumberGenerator;
 import io.schoolspointframework.student.domain.Student;
@@ -20,13 +21,12 @@ public class RegisterApplicantUseCase implements DddUseCase<StudentInfoParameter
 
     private final RollNumberGenerator rollNumberGenerator;
     private final StudentManager<Student> studentManager;
+    private final DomainEventPublisher publisher;
 
     @Override
     public Response<Optional<Void>> execute(StudentInfoParameters params) {
-        Response<Student> response = Student.create(params, rollNumberGenerator)
-                .onSuccess(studentManager::save);
-        if (Response.hasError(response))
-            return Response.failure(Optional.empty(), response.error().validationErrors());
-        return Response.success();
+        return Student.create(params, rollNumberGenerator)
+                .onSuccess(studentManager::save)
+                .thenReturn();
     }
 }

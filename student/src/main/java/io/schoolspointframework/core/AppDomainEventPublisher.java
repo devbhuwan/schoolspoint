@@ -8,11 +8,10 @@ import org.springframework.stereotype.Component;
  * @author Bhuwan Prasad Upadhyay
  */
 @Component
-public class KafkaDomainEventPublisher implements DomainEventPublisher {
+public class AppDomainEventPublisher implements DomainEventPublisher {
 
     @Override
     public <T> void publish(DomainEvent<T> event) {
 
     }
-
 }

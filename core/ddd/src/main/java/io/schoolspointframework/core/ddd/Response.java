@@ -7,7 +7,6 @@ import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static io.schoolspointframework.core.ddd.ValidationError.hasErrors;
@@ -74,5 +73,12 @@ public class Response<V> {
 
     private Response<V> _this() {
         return this;
+    }
+
+    public Response<Optional<Void>> thenReturn() {
+        if (Response.hasError(_this())) {
+            return Response.failure(Optional.empty(), this.error().validationErrors());
+        }
+        return Response.success();
     }
 }

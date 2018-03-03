@@ -15,7 +15,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @RequestMapping(StudentEndpoints.BASE_URI)
 @RestController
-public class RestStudentEndpoints implements StudentEndpoints {
+class RestStudentEndpoints implements StudentEndpoints {
 
     private final @NonNull
     RegisterApplicantUseCase registerApplicantUseCase;
