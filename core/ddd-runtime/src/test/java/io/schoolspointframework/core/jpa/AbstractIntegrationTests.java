@@ -1,12 +1,12 @@
 package io.schoolspointframework.core.jpa;
 
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-@RunWith(SpringRunner.class)
-public abstract class AbstractIntegrationTests {
+@ExtendWith(value = SpringExtension.class)
+abstract class AbstractIntegrationTests {
 
 }

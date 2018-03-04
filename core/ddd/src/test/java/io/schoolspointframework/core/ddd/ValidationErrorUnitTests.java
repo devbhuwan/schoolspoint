@@ -1,6 +1,7 @@
 package io.schoolspointframework.core.ddd;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import static io.schoolspointframework.core.ddd.MessageFormats.MUST_BE_NOT_BLANK;
 import static io.schoolspointframework.core.ddd.ValidationError.raiseIfWithMessage;
@@ -15,20 +16,20 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public class ValidationErrorUnitTests {
+class ValidationErrorUnitTests {
 
     private static final String FIELD = "name";
     private static final String MESSAGE = "Your name is incorrect";
 
     @Test
-    public void nullObjectHaveEmptyCausedByAndMessage() {
+    void nullObjectHaveEmptyCausedByAndMessage() {
         assertThat(ValidationError.NULL)
                 .hasFieldOrPropertyWithValue("causedBy", EMPTY)
                 .hasFieldOrPropertyWithValue("message", EMPTY);
     }
 
     @Test
-    public void compareWithCausedByOnlyField() {
+    void compareWithCausedByOnlyField() {
         assertThat(raiseIfWithMessage(TRUE, "A", "M").compareTo(raiseIfWithMessage(TRUE, "B", "A")))
                 .isLessThan(0);
         assertThat(raiseIfWithMessage(TRUE, "A", "M").compareTo(raiseIfWithMessage(TRUE, "A", "X")))
@@ -38,31 +39,31 @@ public class ValidationErrorUnitTests {
     }
 
     @Test
-    public void compareWithCausedByOnlyFieldCaseInsensitiveManner() {
+    void compareWithCausedByOnlyFieldCaseInsensitiveManner() {
         assertThat(raiseIfWithMessage(TRUE, "A", "M").compareTo(raiseIfWithMessage(TRUE, "a", "X")))
                 .isEqualTo(0);
     }
 
     @Test
-    public void rejectsNullSignal() {
+    void rejectsNullSignal() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> raiseIfWithMessage(null, FIELD, MESSAGE));
     }
 
     @Test
-    public void rejectsNullField() {
+    void rejectsNullField() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> raiseIfWithMessage(TRUE, null, MESSAGE));
     }
 
     @Test
-    public void rejectsNullMessage() {
+    void rejectsNullMessage() {
         assertThatExceptionOfType(IllegalArgumentException.class)
                 .isThrownBy(() -> raiseIfWithMessage(TRUE, FIELD, null));
     }
 
     @Test
-    public void arrayOfErrorToSetMappedCorrectlySkipNULLError() {
+    void arrayOfErrorToSetMappedCorrectlySkipNULLError() {
         assertThat(ValidationError.of(
                 ValidationError.NULL,
                 raiseIfWithMessage(TRUE, FIELD, MESSAGE))
@@ -70,7 +71,7 @@ public class ValidationErrorUnitTests {
     }
 
     @Test
-    public void raisedErrorOnlyIfSignalIsTrue() {
+    void raisedErrorOnlyIfSignalIsTrue() {
         ValidationError whenSignalIsTrue = raiseIfWithMessage(TRUE, "OK", "MESSAGE");
         assertThat(whenSignalIsTrue.getCausedBy()).isEqualTo("OK");
         assertThat(whenSignalIsTrue.getMessage()).isEqualTo("MESSAGE");
@@ -80,7 +81,7 @@ public class ValidationErrorUnitTests {
     }
 
     @Test
-    public void raisedErrorWithFormatMessageByFieldOnlyIfSignalIsTrue() {
+    void raisedErrorWithFormatMessageByFieldOnlyIfSignalIsTrue() {
         ValidationError whenSignalIsTrue = raiseIfWithMessageFormat(TRUE, "OK", MUST_BE_NOT_BLANK);
         assertThat(whenSignalIsTrue.getCausedBy()).isEqualTo("OK");
         assertThat(whenSignalIsTrue.getMessage()).isEqualTo(format(MUST_BE_NOT_BLANK, "OK"));

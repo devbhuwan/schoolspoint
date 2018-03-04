@@ -2,14 +2,14 @@ package io.schoolspointframework.student.domain;
 
 import io.schoolspointframework.core.ddd.Response;
 import io.schoolspointframework.core.ddd.ResponseError;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public class StudentUnitTests {
+class StudentUnitTests {
 
     private static final FakeStudentInfoParameters INCOMPLETE_INFO_PARAMETERS = FakeStudentInfoParameters.builder()
             .build();
@@ -29,7 +29,7 @@ public class StudentUnitTests {
     private static final RollNumberGenerator ROLL_NUMBER_GENERATOR = (g) -> (121);
 
     @Test
-    public void rejectIncompleteStudentInfoParameters() {
+    void rejectIncompleteStudentInfoParameters() {
         Response<Student> studentResponse = Student.create(INCOMPLETE_INFO_PARAMETERS, ROLL_NUMBER_GENERATOR);
 
         assertThat(studentResponse.value())
@@ -41,7 +41,7 @@ public class StudentUnitTests {
 
 
     @Test
-    public void succeedToCreateStudentWhenGivenCompleteStudentInfoParameters() {
+    void succeedToCreateStudentWhenGivenCompleteStudentInfoParameters() {
         Response<Student> studentResponse = Student.create(COMPLETE_INFO_PARAMETERS, ROLL_NUMBER_GENERATOR);
         assertThat(studentResponse.error()).isEqualTo(ResponseError.NULL);
     }

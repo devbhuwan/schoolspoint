@@ -1,6 +1,7 @@
 package io.schoolspointframework.core.ddd;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 import java.util.Set;
@@ -14,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public class ResponseUnitTests {
+class ResponseUnitTests {
 
     private static final Set<ValidationError> ERROR_SET_1 = of(raiseIfWithMessage(true, "a", "b"));
     private static final Set<ValidationError> ERROR_SET_2 =
@@ -22,12 +23,12 @@ public class ResponseUnitTests {
                     raiseIfWithMessage(true, "3", "4"));
 
     @Test
-    public void successResponseCreateCorrectlyWithVoid() {
+    void successResponseCreateCorrectlyWithVoid() {
         assertThat(Response.success().value().isPresent()).isFalse();
     }
 
     @Test
-    public void mergeErrorsCorrectly() {
+    void mergeErrorsCorrectly() {
         assertThat(all(failure(Optional.empty(), ERROR_SET_1), failure(Optional.empty(), ERROR_SET_2))
                 .error().validationErrors()).hasSize(3);
     }

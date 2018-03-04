@@ -1,18 +1,18 @@
 package io.schoolspointframework.student.domain;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import static org.apache.commons.lang3.StringUtils.EMPTY;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public class GradeUnitTests {
+class GradeUnitTests {
 
     @Test
-    public void defaultsToNurseryAsGradeAndEmptyGroup() {
-        assertThat(Grade.create(null, null).value(), is(Grade.create(GradeType.NURSERY, EMPTY).value()));
+    void defaultsToNurseryAsGradeAndEmptyGroup() {
+        assertThat(Grade.create(null, null).value()).isEqualTo(Grade.create(GradeType.NURSERY, EMPTY).value());
     }
 }

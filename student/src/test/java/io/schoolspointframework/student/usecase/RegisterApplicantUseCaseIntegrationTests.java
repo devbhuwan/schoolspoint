@@ -2,7 +2,7 @@ package io.schoolspointframework.student.usecase;
 
 import io.schoolspointframework.AbstractIntegrationTests;
 import io.schoolspointframework.student.domain.FakeStudentInfoParameters;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Bhuwan Prasad Upadhyay
  */
 @DataJpaTest
-public class RegisterApplicantUseCaseIntegrationTests extends AbstractIntegrationTests {
+class RegisterApplicantUseCaseIntegrationTests extends AbstractIntegrationTests {
 
     private static final FakeStudentInfoParameters INCOMPLETE_STUDENT_INFO_PARAMETERS = FakeStudentInfoParameters
             .builder().build();
@@ -33,12 +33,12 @@ public class RegisterApplicantUseCaseIntegrationTests extends AbstractIntegratio
     private RegisterApplicantUseCase registerApplicantUseCase;
 
     @Test
-    public void rejectsIncompleteStudentInfoParameters() {
+    void rejectsIncompleteStudentInfoParameters() {
         assertThat(registerApplicantUseCase.execute(INCOMPLETE_STUDENT_INFO_PARAMETERS).error().validationErrors()).isNotEmpty();
     }
 
     @Test
-    public void saveApplicantCorrectlyWhenPassedCompleteStudentInfoParameters() {
+    void saveApplicantCorrectlyWhenPassedCompleteStudentInfoParameters() {
         assertThat(registerApplicantUseCase.execute(COMPLETE_STUDENT_INFO_PARAMETERS).error().validationErrors()).isEmpty();
     }
 }

@@ -1,14 +1,15 @@
 package io.schoolspointframework.student.domain;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public class RollNumberUnitTests {
+class RollNumberUnitTests {
 
     @Test
-    public void plusOneGuaranteedSameRollNumberNotBeingGeneratedOnConcurrentAccess() {
+    void plusOneGuaranteedSameRollNumberNotBeingGeneratedOnConcurrentAccess() {
 
     }
 
