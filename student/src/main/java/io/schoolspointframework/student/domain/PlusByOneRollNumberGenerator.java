@@ -4,6 +4,8 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import static io.schoolspointframework.student.domain.RollNumber.START;
+
 /**
  * @author Bhuwan Prasad Upadhyay
  */
@@ -19,7 +21,7 @@ class PlusByOneRollNumberGenerator implements RollNumberGenerator {
         return studentRepository
                 .findFirstByGradeOrderByRollNumberDesc(grade)
                 .map(Student::getRollNumber)
-                .orElse(RollNumber.START).plusOne();
+                .orElse(START).plusOne();
     }
 
 }

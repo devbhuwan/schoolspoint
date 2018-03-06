@@ -8,7 +8,7 @@ import javax.persistence.Embeddable;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-final class DddValueObjectTransformer extends AbstractDddAnnotationTransformer {
+final class DddValueObjectTransformer extends AbstractDddRuntimeTransformer {
 
     @Override
     protected Class<?> annotationClass() {

@@ -13,11 +13,7 @@ public enum DddJavassistAgentFactory {
     INSTANCE;
 
     public List<ClassFileTransformer> transformers() {
-        return unmodifiableList(asList(
-                new DddEntityTransformer(),
-                new DddEntityIdentifierTransformer(),
-                new DddValueObjectTransformer()
-        ));
+        return List.of(new DddEntityTransformer(), new DddEntityIdentifierTransformer(), new DddValueObjectTransformer());
     }
 
 }

@@ -10,7 +10,7 @@
     <artifactId>schoolspoint-core-ddd-runtime</artifactId>
 
     <properties>
-        <agent.class>io.schoolspointframework.core.ddd.runtime.DddJavassistAgentAutoConfiguration</agent.class>
+        <agent.class>io.schoolspointframework.core.ddd.runtime.DddRuntimeAgentAutoConfiguration</agent.class>
     </properties>
 
     <dependencies>

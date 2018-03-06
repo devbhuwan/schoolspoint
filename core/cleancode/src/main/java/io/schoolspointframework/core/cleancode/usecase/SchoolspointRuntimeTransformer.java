@@ -1,26 +1,24 @@
-package io.schoolspointframework.core.ddd.runtime.agent;
+package io.schoolspointframework.core.cleancode.usecase;
 
 import javassist.ClassPool;
 import javassist.CtClass;
-import javassist.bytecode.AnnotationsAttribute;
-import javassist.bytecode.ClassFile;
-import javassist.bytecode.ConstPool;
-import javassist.bytecode.annotation.Annotation;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
-import java.util.Objects;
-
-import static javassist.bytecode.AnnotationsAttribute.visibleTag;
+import java.util.stream.Stream;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-abstract class AbstractDddAnnotationTransformer implements ClassFileTransformer {
+public abstract class SchoolspointRuntimeTransformer<T> implements ClassFileTransformer {
 
     private static final String JAVA_ASSIST_CLASS_PACKAGE_SEPARATOR = ".";
     private final ClassPool classPool = ClassPool.getDefault();
+
+    public static boolean hasInterface(CtClass ctClass, Class<?> interfaceType) throws Exception {
+        return Stream.ofNullable(ctClass.getInterfaces()).anyMatch(c -> c.getClass().equals(interfaceType));
+    }
 
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
@@ -36,7 +34,7 @@ abstract class AbstractDddAnnotationTransformer implements ClassFileTransformer 
         }
         try {
             boolean anythingInstrumented = false;
-            if (hasDddAnnotation(ctClass)) {
+            if (activateOnlyIf(ctClass)) {
                 instrument(ctClass);
                 anythingInstrumented = true;
             }
@@ -50,27 +48,8 @@ abstract class AbstractDddAnnotationTransformer implements ClassFileTransformer 
         return null;
     }
 
-    private boolean hasDddAnnotation(final CtClass ctClass) throws ClassNotFoundException {
-        return Objects.nonNull(ctClass.getAnnotation(annotationClass()));
-    }
-
-    protected abstract Class<?> annotationClass();
+    protected abstract boolean activateOnlyIf(CtClass ctClass) throws Exception;
 
     protected abstract void instrument(final CtClass ctClass);
 
-
-    private AnnotationsAttribute annotationsAttribute(ConstPool constPool, Class<?> annotationClass) {
-        AnnotationsAttribute attribute = new AnnotationsAttribute(constPool, visibleTag);
-        Annotation annotation = new Annotation(annotationClass.getTypeName(), constPool);
-        attribute.setAnnotation(annotation);
-        return attribute;
-    }
-
-
-    protected void addClassLevelAnnotation(CtClass ctClass, Class<?> annotationClass) {
-        ClassFile classFile = ctClass.getClassFile();
-        ConstPool constPool = classFile.getConstPool();
-        classFile.addAttribute(annotationsAttribute(constPool, annotationClass));
-        classFile.setVersionToJava5();
-    }
 }

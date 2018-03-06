@@ -14,6 +14,7 @@
         <module>cleancode</module>
         <module>cqrs</module>
         <module>ddd-runtime</module>
+        <module>cleancode-runtime</module>
     </modules>
 
 </project>

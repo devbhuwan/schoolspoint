@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public final class DddEntityTransformer extends AbstractDddAnnotationTransformer {
+public final class DddEntityTransformer extends AbstractDddRuntimeTransformer {
 
     @Override
     protected Class<?> annotationClass() {

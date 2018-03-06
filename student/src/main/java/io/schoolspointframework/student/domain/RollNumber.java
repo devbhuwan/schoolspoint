@@ -34,7 +34,7 @@ class RollNumber {
         Integer newSequence = generator.newSequence(grade);
         Set<ValidationError> errors = validateEntry(newSequence);
         if (hasErrors(errors))
-            return Response.failure(RollNumber.NULL, errors);
+            return Response.failure(NULL, errors);
         return Response.success(new RollNumber(newSequence));
     }
 
