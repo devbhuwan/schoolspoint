@@ -12,13 +12,13 @@ public class UseCaseLoggingInjectorTransformer extends SchoolspointRuntimeTransf
 
     @Override
     protected boolean activateOnlyIf(CtClass ctClass) throws Exception {
-        return ctClass.hasAnnotation(UseCaseDecorator.class);
+        return ctClass.hasAnnotation(UseCaseDesign.class);
     }
 
     @Override
     protected void instrument(CtClass ctClass) throws Exception {
         CtMethod execute = ctClass.getDeclaredMethod("execute");
-        execute.insertAfter(format("LOG.info(\"Executing [%s]\");", ctClass.getName()));
         execute.insertBefore(format("LOG.info(\"Finished [%s]\");", ctClass.getName()));
+        execute.insertAfter(format("LOG.info(\"Executing [%s]\");", ctClass.getName()));
     }
 }

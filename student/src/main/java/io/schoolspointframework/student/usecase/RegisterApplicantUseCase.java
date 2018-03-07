@@ -1,6 +1,6 @@
 package io.schoolspointframework.student.usecase;
 
-import io.schoolspointframework.core.cleancode.usecase.UseCaseDecorator;
+import io.schoolspointframework.core.cleancode.usecase.UseCaseDesign;
 import io.schoolspointframework.core.ddd.Response;
 import io.schoolspointframework.core.ddd.event.DomainEventPublisher;
 import io.schoolspointframework.core.ddd.usecase.DddUseCase;
@@ -19,7 +19,7 @@ import java.util.Optional;
  */
 @Component
 @RequiredArgsConstructor
-@UseCaseDecorator
+@UseCaseDesign
 @Slf4j
 public class RegisterApplicantUseCase implements DddUseCase<StudentInfoParameters, Optional<Void>> {
 
