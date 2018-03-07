@@ -4,6 +4,8 @@ import io.schoolspointframework.core.cleancode.usecase.SchoolspointRuntimeTransf
 import io.schoolspointframework.core.cleancode.usecase.UseCase;
 import javassist.CtClass;
 
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+
 /**
  * @author Bhuwan Prasad Upadhyay
  */
@@ -15,7 +17,7 @@ public class UseCaseLoggingInjectorTransformer extends SchoolspointRuntimeTransf
     }
 
     @Override
-    protected void instrument(CtClass ctClass) {
-
+    protected void instrument(CtClass ctClass) throws Exception {
+        ctClass.getMethod("execute", EMPTY);
     }
 }

@@ -4,24 +4,28 @@ import javassist.ClassPool;
 import javassist.CtClass;
 
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public abstract class SchoolspointRuntimeTransformer<T> implements ClassFileTransformer {
+public abstract class SchoolspointRuntimeTransformer implements ClassFileTransformer {
 
     private static final String JAVA_ASSIST_CLASS_PACKAGE_SEPARATOR = ".";
     private final ClassPool classPool = ClassPool.getDefault();
 
-    public static boolean hasInterface(CtClass ctClass, Class<?> interfaceType) throws Exception {
-        return Stream.ofNullable(ctClass.getInterfaces()).anyMatch(c -> c.getClass().equals(interfaceType));
+    protected static boolean hasInterface(CtClass ctClass, Class<?> interfaceType) throws Exception {
+        return Stream.of(ctClass.getInterfaces()).anyMatch(c -> isEqualClass(interfaceType.getInterfaces()[0], c));
+    }
+
+    private static boolean isEqualClass(Class<?> excepted, CtClass source) {
+        return Objects.equals(source.getClass().getName(), excepted.getName());
     }
 
     @Override
-    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
+    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
         if (className == null)
             return null;
         final String classNameDots = className.replaceAll("/", JAVA_ASSIST_CLASS_PACKAGE_SEPARATOR);
@@ -50,6 +54,6 @@ public abstract class SchoolspointRuntimeTransformer<T> implements ClassFileTran
 
     protected abstract boolean activateOnlyIf(CtClass ctClass) throws Exception;
 
-    protected abstract void instrument(final CtClass ctClass);
+    protected abstract void instrument(final CtClass ctClass) throws Exception;
 
 }
