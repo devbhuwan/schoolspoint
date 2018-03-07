@@ -29,6 +29,7 @@ public class RuntimeAgentInstaller {
 
     public static void premain(String agentArguments, Instrumentation instrumentation) {
         RuntimeAgentInstaller.instrumentation = instrumentation;
+        addTransformers(new UseCaseLoggingInjectorTransformer());
     }
 
     public static void agentmain(String agentArguments, Instrumentation instrumentation) {

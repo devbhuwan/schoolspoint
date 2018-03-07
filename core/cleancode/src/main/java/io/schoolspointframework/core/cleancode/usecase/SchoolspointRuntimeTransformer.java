@@ -2,27 +2,19 @@ package io.schoolspointframework.core.cleancode.usecase;
 
 import javassist.ClassPool;
 import javassist.CtClass;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
-import java.util.Objects;
-import java.util.stream.Stream;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
+@Slf4j
 public abstract class SchoolspointRuntimeTransformer implements ClassFileTransformer {
 
     private static final String JAVA_ASSIST_CLASS_PACKAGE_SEPARATOR = ".";
     private final ClassPool classPool = ClassPool.getDefault();
-
-    protected static boolean hasInterface(CtClass ctClass, Class<?> interfaceType) throws Exception {
-        return Stream.of(ctClass.getInterfaces()).anyMatch(c -> isEqualClass(interfaceType.getInterfaces()[0], c));
-    }
-
-    private static boolean isEqualClass(Class<?> excepted, CtClass source) {
-        return Objects.equals(source.getClass().getName(), excepted.getName());
-    }
 
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
@@ -45,7 +37,7 @@ public abstract class SchoolspointRuntimeTransformer implements ClassFileTransfo
             if (anythingInstrumented)
                 return ctClass.toBytecode();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new IllegalStateException(e);
         } finally {
             ctClass.detach();
         }

@@ -1,5 +1,6 @@
 package io.schoolspointframework.student.usecase;
 
+import io.schoolspointframework.core.cleancode.usecase.UseCaseDecorator;
 import io.schoolspointframework.core.ddd.Response;
 import io.schoolspointframework.core.ddd.event.DomainEventPublisher;
 import io.schoolspointframework.core.ddd.usecase.DddUseCase;
@@ -8,6 +9,7 @@ import io.schoolspointframework.student.domain.Student;
 import io.schoolspointframework.student.domain.StudentInfoParameters;
 import io.schoolspointframework.student.domain.StudentManager;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -17,6 +19,8 @@ import java.util.Optional;
  */
 @Component
 @RequiredArgsConstructor
+@UseCaseDecorator
+@Slf4j
 public class RegisterApplicantUseCase implements DddUseCase<StudentInfoParameters, Optional<Void>> {
 
     private final RollNumberGenerator rollNumberGenerator;
