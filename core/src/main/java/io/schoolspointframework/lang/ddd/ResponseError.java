@@ -12,7 +12,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * @author Bhuwan Prasad Upadhyay
  */
 @DddValueObject
-public class ResponseError extends ValueObject implements Comparable<ResponseError> {
+public class ResponseError implements Comparable<ResponseError> {
     public static final ResponseError NULL = new ResponseError(EMPTY, EMPTY);
     private final String causedBy;
     private final String message;

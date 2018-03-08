@@ -43,7 +43,7 @@ class StudentUnitTests {
     @Test
     void succeedToCreateStudentWhenGivenCompleteStudentInfoParameters() {
         Response<Student> studentResponse = Student.create(COMPLETE_INFO_PARAMETERS, ROLL_NUMBER_GENERATOR);
-        assertThat(studentResponse.errors()).isEqualTo(ResponseError.NULL);
+        assertThat(studentResponse.errors()).isEmpty();
     }
 
 }
