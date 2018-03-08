@@ -4,6 +4,7 @@ package io.schoolspointframework.lang.ddd;
 import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -46,12 +47,9 @@ public class Response<V> {
 
     public static <V> ResponseSpec<V> of(Class<V> vClass, Response<?>... responses) {
         LOG.info("Creating Response [{}]", vClass.getName());
-        return ResponseSpec.create(
-                stream(responses)
-                        .map(Response::errors)
-                        .flatMap(Set::stream)
-                        .collect(toSet())
-        );
+        Set<ResponseError> errors = new LinkedHashSet<>();
+        stream(responses).forEachOrdered(r -> errors.addAll(r.errors()));
+        return ResponseSpec.create(errors);
     }
 
     private boolean isValid() {

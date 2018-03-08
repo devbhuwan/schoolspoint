@@ -5,15 +5,12 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static io.schoolspointframework.lang.ddd.MessageFormats.MUST_BE_NOT_BLANK;
 import static io.schoolspointframework.lang.ddd.MessageFormats.MUST_BE_NOT_NULL;
 import static io.schoolspointframework.lang.ddd.Response.failure;
 import static io.schoolspointframework.lang.ddd.Response.success;
 import static io.schoolspointframework.lang.ddd.ResponseError.raiseIfF;
-import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toSet;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
@@ -23,11 +20,8 @@ public class ResponseSpec<V> {
     private final Set<ResponseError> errors = new LinkedHashSet<>();
 
     private ResponseSpec(Set<ResponseError> errors) {
-        errors.addAll(ofNullable(errors)
-                .stream()
-                .flatMap(Set::stream)
-                .filter(ResponseError::isNotEmpty)
-                .collect(toSet()));
+        if (Objects.nonNull(errors))
+            this.errors.addAll(errors);
     }
 
     public static <T> ResponseSpec<T> create() {
