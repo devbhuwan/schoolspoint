@@ -1,7 +1,7 @@
 package io.schoolspointframework.core;
 
-import io.schoolspointframework.core.ddd.event.DomainEvent;
-import io.schoolspointframework.core.ddd.event.DomainEventPublisher;
+import io.schoolspointframework.lang.ddd.event.DomainEvent;
+import io.schoolspointframework.lang.ddd.event.DomainEventPublisher;
 import org.springframework.stereotype.Component;
 
 /**

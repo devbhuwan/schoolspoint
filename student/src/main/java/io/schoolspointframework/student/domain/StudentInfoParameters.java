@@ -1,6 +1,7 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.ddd.InfoParameters;
+
+import io.schoolspointframework.lang.ddd.InfoParameters;
 
 /**
  * @author Bhuwan Prasad Upadhyay

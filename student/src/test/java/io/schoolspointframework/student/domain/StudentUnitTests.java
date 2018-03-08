@@ -1,7 +1,7 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.ddd.Response;
-import io.schoolspointframework.core.ddd.ResponseError;
+import io.schoolspointframework.lang.ddd.Response;
+import io.schoolspointframework.lang.ddd.ResponseError;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

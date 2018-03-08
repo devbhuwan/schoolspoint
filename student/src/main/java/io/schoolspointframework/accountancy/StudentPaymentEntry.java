@@ -1,6 +1,6 @@
 package io.schoolspointframework.accountancy;
 
-import io.schoolspointframework.core.ddd.annotations.DddEntity;
+import io.schoolspointframework.lang.ddd.annotations.DddEntity;
 
 /**
  * @author Bhuwan Prasad Upadhyay

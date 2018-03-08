@@ -1,7 +1,7 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.ddd.Response;
-import io.schoolspointframework.core.ddd.ValidationError;
+import io.schoolspointframework.lang.ddd.Response;
+import io.schoolspointframework.lang.ddd.ValidationError;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,8 +13,8 @@ import javax.persistence.Table;
 import java.util.Optional;
 import java.util.Set;
 
-import static io.schoolspointframework.core.ddd.MessageFormats.MUST_BE_NOT_NULL;
-import static io.schoolspointframework.core.ddd.ValidationError.raiseIfWithMessageFormat;
+import static io.schoolspointframework.lang.ddd.MessageFormats.MUST_BE_NOT_NULL;
+import static io.schoolspointframework.lang.ddd.ValidationError.raiseIfWithMessageFormat;
 import static io.schoolspointframework.student.domain.GradeType.valueOfOrElseGetDefault;
 import static java.util.Objects.isNull;
 

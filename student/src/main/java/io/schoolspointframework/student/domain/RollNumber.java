@@ -1,18 +1,19 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.ddd.Response;
-import io.schoolspointframework.core.ddd.ValidationError;
-import io.schoolspointframework.core.ddd.annotations.DddValueObject;
+import io.schoolspointframework.lang.ddd.Response;
+import io.schoolspointframework.lang.ddd.ValidationError;
+import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
 import lombok.*;
 
 import javax.persistence.Embeddable;
 import java.util.Set;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static io.schoolspointframework.core.ddd.MessageFormats.MUST_BE_NOT_NULL;
-import static io.schoolspointframework.core.ddd.ValidationError.*;
+import static io.schoolspointframework.lang.ddd.MessageFormats.MUST_BE_NOT_NULL;
+import static io.schoolspointframework.lang.ddd.ValidationError.hasErrors;
+import static io.schoolspointframework.lang.ddd.ValidationError.raiseIfWithMessageFormat;
 import static java.util.Objects.isNull;
+import static java.util.Set.of;
 
 /**
  * @author Bhuwan Prasad Upadhyay

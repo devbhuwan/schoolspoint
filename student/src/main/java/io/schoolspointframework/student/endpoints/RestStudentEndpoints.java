@@ -1,6 +1,6 @@
 package io.schoolspointframework.student.endpoints;
 
-import io.schoolspointframework.core.ddd.ValidationError;
+import io.schoolspointframework.lang.ddd.ValidationError;
 import io.schoolspointframework.student.usecase.RegisterApplicantUseCase;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

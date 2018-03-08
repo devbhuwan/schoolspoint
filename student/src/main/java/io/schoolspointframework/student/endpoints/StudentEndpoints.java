@@ -1,6 +1,6 @@
 package io.schoolspointframework.student.endpoints;
 
-import io.schoolspointframework.core.ddd.ValidationError;
+import io.schoolspointframework.lang.ddd.ValidationError;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Set;

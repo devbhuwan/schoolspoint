@@ -1,7 +1,7 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.ddd.Response;
-import io.schoolspointframework.core.ddd.annotations.DddValueObject;
+import io.schoolspointframework.lang.ddd.Response;
+import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

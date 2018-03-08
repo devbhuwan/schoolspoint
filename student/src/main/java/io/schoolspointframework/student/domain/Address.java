@@ -1,8 +1,8 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.ddd.Response;
-import io.schoolspointframework.core.ddd.ValidationError;
-import io.schoolspointframework.core.ddd.annotations.DddValueObject;
+import io.schoolspointframework.lang.ddd.Response;
+import io.schoolspointframework.lang.ddd.ValidationError;
+import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -11,8 +11,10 @@ import lombok.experimental.FieldDefaults;
 import javax.persistence.Embeddable;
 import java.util.Set;
 
-import static io.schoolspointframework.core.ddd.MessageFormats.MUST_BE_NOT_BLANK;
-import static io.schoolspointframework.core.ddd.ValidationError.*;
+import static io.schoolspointframework.lang.ddd.MessageFormats.MUST_BE_NOT_BLANK;
+import static io.schoolspointframework.lang.ddd.ValidationError.hasErrors;
+import static io.schoolspointframework.lang.ddd.ValidationError.raiseIfWithMessageFormat;
+import static java.util.Set.of;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
