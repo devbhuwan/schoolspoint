@@ -35,7 +35,7 @@ class Grade {
     }
 
     public static Response<Grade> create(GradeType gradeType, String group) {
-        return Response.<Grade>create().getOrElse(grade(gradeType, group), defaultGrade());
+        return Response.create(Grade.class).getOrElse(grade(gradeType, group), defaultGrade());
     }
 
     private static Supplier<Grade> grade(GradeType gradeType, String group) {

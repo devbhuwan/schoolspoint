@@ -34,11 +34,11 @@ class RegisterApplicantUseCaseIntegrationTests extends AbstractIntegrationTests 
 
     @Test
     void rejectsIncompleteStudentInfoParameters() {
-        assertThat(registerApplicantUseCase.execute(INCOMPLETE_STUDENT_INFO_PARAMETERS).errors().validationErrors()).isNotEmpty();
+        assertThat(registerApplicantUseCase.execute(INCOMPLETE_STUDENT_INFO_PARAMETERS).errors()).isNotEmpty();
     }
 
     @Test
     void saveApplicantCorrectlyWhenPassedCompleteStudentInfoParameters() {
-        assertThat(registerApplicantUseCase.execute(COMPLETE_STUDENT_INFO_PARAMETERS).errors().validationErrors()).isEmpty();
+        assertThat(registerApplicantUseCase.execute(COMPLETE_STUDENT_INFO_PARAMETERS).errors()).isEmpty();
     }
 }

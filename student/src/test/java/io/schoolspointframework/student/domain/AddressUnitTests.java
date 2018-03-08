@@ -25,8 +25,8 @@ class AddressUnitTests {
 
     @Test
     void rejectsBlankName() {
-        assertThat(Address.create(null, EMPTY, EMPTY, EMPTY).errors().validationErrors()).extracting("causedBy").contains("name");
-        assertThat(Address.create("  ", EMPTY, EMPTY, EMPTY).errors().validationErrors()).extracting("causedBy").contains("name");
+        assertThat(Address.create(null, EMPTY, EMPTY, EMPTY).errors()).extracting("causedBy").contains("name");
+        assertThat(Address.create("  ", EMPTY, EMPTY, EMPTY).errors()).extracting("causedBy").contains("name");
     }
 
     @Test

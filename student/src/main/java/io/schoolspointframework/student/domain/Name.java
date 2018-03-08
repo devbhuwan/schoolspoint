@@ -28,7 +28,7 @@ class Name {
     private String lastName;
 
     static Response<Name> create(String firstName, String middleName, String lastName) {
-        return Response.<Name>create()
+        return Response.create(Name.class)
                 .raiseIfBlank(firstName, "firstName", "")
                 .raiseIfBlank(lastName, "lastName", "")
                 .getOrElse(name(firstName, middleName, lastName), defaultName());

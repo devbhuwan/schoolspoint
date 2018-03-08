@@ -35,7 +35,7 @@ public class Student extends AbstractPersistable<Long> {
         Response<Grade> grade = Grade.create(valueOfOrElseGetDefault(params.getGradeType()), params.getGroup());
         Response<RollNumber> rollNumber = RollNumber.create(grade.value(), rollNumberGenerator);
         return Response
-                .<Student>create(name, address, grade, rollNumber)
+                .create(Student.class, name, address, grade, rollNumber)
                 .raiseIfNull(name.value(), "studentName")
                 .raiseIfNull(address.value(), "studentAddress")
                 .raiseIfNull(grade.value(), "studentGrade")

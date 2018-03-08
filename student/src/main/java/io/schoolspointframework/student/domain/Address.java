@@ -32,7 +32,7 @@ class Address extends ValueObject {
     private String zipCode;
 
     static Response<Address> create(String name, String street, String city, String zipCode) {
-        return Response.<Address>create()
+        return Response.create(Address.class)
                 .raiseIfBlank(name, "addressName", "student.address.name.must.be.not.blank")
                 .getOrElse(address(name, street, city, zipCode), defaultAddress());
     }

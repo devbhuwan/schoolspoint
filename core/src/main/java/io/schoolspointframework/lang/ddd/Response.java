@@ -2,6 +2,7 @@ package io.schoolspointframework.lang.ddd;
 
 
 import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 import java.util.Set;
@@ -16,6 +17,7 @@ import static java.util.stream.Collectors.toSet;
  * @author Bhuwan Prasad Upadhyay
  */
 @DddValueObject
+@Slf4j
 public class Response<V> {
 
     private final V value;
@@ -42,11 +44,8 @@ public class Response<V> {
         return success(empty());
     }
 
-    public static <V> ResponseSpec<V> create() {
-        return ResponseSpec.create();
-    }
-
-    public static <V> ResponseSpec<V> create(Response... responses) {
+    public static <V> ResponseSpec<V> create(Class<V> vClass, Response<?>... responses) {
+        LOG.info("Creating Response [{}]", vClass.getName());
         return ResponseSpec.create(
                 stream(responses)
                         .map(Response::errors)
@@ -54,7 +53,6 @@ public class Response<V> {
                         .collect(toSet())
         );
     }
-
 
     private boolean isValid() {
         return errors.isEmpty();
