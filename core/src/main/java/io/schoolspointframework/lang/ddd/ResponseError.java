@@ -4,8 +4,6 @@ package io.schoolspointframework.lang.ddd;
 import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
 import lombok.NonNull;
 
-import java.util.Objects;
-
 import static java.lang.String.format;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
@@ -38,11 +36,6 @@ public class ResponseError extends ValueObject implements Comparable<ResponseErr
 
     public boolean isNotEmpty() {
         return !isEmpty();
-    }
-
-    @Override
-    protected int valueHashCode() {
-        return Objects.hash(causedBy, message);
     }
 
     @Override

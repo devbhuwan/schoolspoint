@@ -44,7 +44,7 @@ public class Response<V> {
         return success(empty());
     }
 
-    public static <V> ResponseSpec<V> create(Class<V> vClass, Response<?>... responses) {
+    public static <V> ResponseSpec<V> of(Class<V> vClass, Response<?>... responses) {
         LOG.info("Creating Response [{}]", vClass.getName());
         return ResponseSpec.create(
                 stream(responses)

@@ -26,7 +26,7 @@ class RollNumber {
 
     static Response<RollNumber> create(Grade grade, RollNumberGenerator generator) {
         Integer newSequence = generator.newSequence(grade);
-        return Response.create(RollNumber.class)
+        return Response.of(RollNumber.class)
                 .raiseIfNull(newSequence, "rollNumberSequence")
                 .getOrElse(rollNumber(newSequence), defaultRollNumber());
     }
