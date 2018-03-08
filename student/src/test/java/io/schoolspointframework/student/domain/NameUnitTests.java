@@ -18,17 +18,17 @@ class NameUnitTests {
 
     @Test
     void rejectsNullAndBlankFirstName() {
-        assertThat(Name.create(null, MIDDLE_NAME, LAST_NAME).error().validationErrors())
+        assertThat(Name.create(null, MIDDLE_NAME, LAST_NAME).errors().validationErrors())
                 .extracting("causedBy").contains("firstName");
-        assertThat(Name.create(BLANK_FIRST_NAME, MIDDLE_NAME, LAST_NAME).error().validationErrors())
+        assertThat(Name.create(BLANK_FIRST_NAME, MIDDLE_NAME, LAST_NAME).errors().validationErrors())
                 .extracting("causedBy").contains("firstName");
     }
 
     @Test
     void rejectsNullAndBlankLastName() {
-        assertThat(Name.create(FIRST_NAME, MIDDLE_NAME, null).error().validationErrors())
+        assertThat(Name.create(FIRST_NAME, MIDDLE_NAME, null).errors().validationErrors())
                 .extracting("causedBy").contains("lastName");
-        assertThat(Name.create(FIRST_NAME, MIDDLE_NAME, BLANK_LAST_NAME).error().validationErrors())
+        assertThat(Name.create(FIRST_NAME, MIDDLE_NAME, BLANK_LAST_NAME).errors().validationErrors())
                 .extracting("causedBy").contains("lastName");
     }
 

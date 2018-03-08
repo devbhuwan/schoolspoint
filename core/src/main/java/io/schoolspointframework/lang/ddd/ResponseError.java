@@ -2,38 +2,51 @@ package io.schoolspointframework.lang.ddd;
 
 
 import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
-import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 
 import java.util.Objects;
-import java.util.Set;
 
-import static java.util.Collections.emptySet;
-import static java.util.Collections.unmodifiableSet;
+import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-@EqualsAndHashCode
 @DddValueObject
-public class ResponseError {
+public class ResponseError extends ValueObject implements Comparable<ResponseError> {
+    public static final ResponseError NULL = new ResponseError(EMPTY, EMPTY);
+    private final String causedBy;
+    private final String message;
 
-    public static final ResponseError NULL = new ResponseError(emptySet());
-    private final Set<ValidationError> errors;
-
-    ResponseError(Set<ValidationError> errors) {
-        this.errors = unmodifiableSet(errors);
+    private ResponseError(String causedBy, String message) {
+        this.causedBy = isNotBlank(causedBy) ? causedBy : EMPTY;
+        this.message = isNotBlank(message) ? message : EMPTY;
     }
 
-    public Set<ValidationError> validationErrors() {
-        return errors;
+    static ResponseError raiseIfF(@NonNull Boolean signal, @NonNull String field, @NonNull String format) {
+        return raiseIfM(signal, field, format(format, field));
+    }
+
+    static ResponseError raiseIfM(@NonNull Boolean signal, @NonNull String field, @NonNull String message) {
+        return signal ? new ResponseError(field, message) : ResponseError.NULL;
     }
 
     public boolean isEmpty() {
-        return this.equals(NULL) && errors.isEmpty();
+        return this.equals(NULL);
     }
 
-    public ValidationError validationError(String causedBy) {
-        return errors.stream().filter(e -> Objects.equals(e.getCausedBy(), causedBy)).findFirst().orElse(ValidationError.NULL);
+    public boolean isNotEmpty() {
+        return !isEmpty();
     }
 
+    @Override
+    protected int valueHashCode() {
+        return Objects.hash(causedBy, message);
+    }
+
+    @Override
+    public int compareTo(ResponseError o) {
+        return this.causedBy.compareToIgnoreCase(o.causedBy);
+    }
 }

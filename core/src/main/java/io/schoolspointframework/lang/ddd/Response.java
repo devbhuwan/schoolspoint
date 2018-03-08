@@ -3,13 +3,12 @@ package io.schoolspointframework.lang.ddd;
 
 import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
 
-import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static io.schoolspointframework.lang.ddd.ValidationError.hasErrors;
+import static java.util.Arrays.stream;
 import static java.util.Optional.empty;
 import static java.util.stream.Collectors.toSet;
 
@@ -20,49 +19,53 @@ import static java.util.stream.Collectors.toSet;
 public class Response<V> {
 
     private final V value;
-    private final ResponseError error;
+    private final Set<ResponseError> errors;
 
-    private Response(V value, ResponseError error) {
-        this.value = value;
-        this.error = error;
+    private Response(V value, ResponseError... errors) {
+        this(value, Stream.of(errors).collect(toSet()));
     }
 
-    public static <V> Response<V> success(V value) {
+    private Response(V value, Set<ResponseError> errors) {
+        this.value = value;
+        this.errors = errors.stream().filter(ResponseError::isNotEmpty).collect(toSet());
+    }
+
+    static <V> Response<V> success(V value) {
         return new Response<>(value, ResponseError.NULL);
     }
 
-    public static <V> Response<V> failure(V value, Set<ValidationError> errors) {
-        return new Response<>(value, new ResponseError(errors));
+    static <V> Response<V> failure(V value, Set<ResponseError> errors) {
+        return new Response<>(value, errors);
     }
 
-    public static Response<Optional<Void>> success() {
+    static Response<Optional<Void>> success() {
         return success(empty());
     }
 
-    private static Set<ResponseError> toErrors(Response<?>... responses) {
-        return Stream.of(responses).map(Response::error).collect(toSet());
+    public static <V> ResponseSpec<V> create() {
+        return ResponseSpec.create();
     }
 
-    public static Response<Optional<Void>> all(Response<?>... responses) {
-        Set<ValidationError> errors = new LinkedHashSet<>();
-        toErrors(responses).forEach(e -> errors.addAll(e.validationErrors()));
-        return Response.failure(Optional.empty(), errors);
+    public static <V> ResponseSpec<V> create(Response... responses) {
+        return ResponseSpec.create(
+                stream(responses)
+                        .map(Response::errors)
+                        .flatMap(Set::stream)
+                        .collect(toSet())
+        );
     }
 
-    public static <V> boolean hasError(Response<V> response) {
-        return hasErrors(response.error().validationErrors());
-    }
 
     private boolean isValid() {
-        return error.isEmpty();
+        return errors.isEmpty();
     }
 
     public V value() {
         return value;
     }
 
-    public ResponseError error() {
-        return error;
+    public Set<ResponseError> errors() {
+        return errors;
     }
 
     public Response<V> onSuccess(Function<V, V> save) {
@@ -76,9 +79,13 @@ public class Response<V> {
     }
 
     public Response<Optional<Void>> thenReturn() {
-        if (Response.hasError(_this())) {
-            return Response.failure(Optional.empty(), this.error().validationErrors());
+        if (this.isInvalid()) {
+            return Response.failure(Optional.empty(), this.errors());
         }
         return Response.success();
+    }
+
+    private boolean isInvalid() {
+        return !isValid();
     }
 }

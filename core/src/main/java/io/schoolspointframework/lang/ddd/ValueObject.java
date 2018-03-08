@@ -5,14 +5,14 @@ import java.util.Objects;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public abstract class DddValueObject {
+public abstract class ValueObject {
 
     @Override
     public int hashCode() {
         return valueHashCode();
     }
 
-    public abstract int valueHashCode();
+    protected abstract int valueHashCode();
 
     @Override
     public boolean equals(Object that) {

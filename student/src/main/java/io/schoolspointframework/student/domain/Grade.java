@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
+import java.util.function.Supplier;
 
 import static io.schoolspointframework.student.domain.GradeType.NURSERY;
 import static java.util.Objects.isNull;
@@ -34,6 +35,14 @@ class Grade {
     }
 
     public static Response<Grade> create(GradeType gradeType, String group) {
-        return Response.success(new Grade(gradeType, group));
+        return Response.<Grade>create().getOrElse(grade(gradeType, group), defaultGrade());
+    }
+
+    private static Supplier<Grade> grade(GradeType gradeType, String group) {
+        return () -> new Grade(gradeType, group);
+    }
+
+    private static Supplier<Grade> defaultGrade() {
+        return () -> Grade.NULL;
     }
 }

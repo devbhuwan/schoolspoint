@@ -36,14 +36,14 @@ class StudentUnitTests {
                 .hasFieldOrPropertyWithValue("name", Name.NULL)
                 .hasFieldOrPropertyWithValue("address", Address.NULL)
                 .hasFieldOrPropertyWithValue("grade", Grade.NULL);
-        assertThat(studentResponse.error()).isNotEqualTo(ResponseError.NULL);
+        assertThat(studentResponse.errors()).isNotEqualTo(ResponseError.NULL);
     }
 
 
     @Test
     void succeedToCreateStudentWhenGivenCompleteStudentInfoParameters() {
         Response<Student> studentResponse = Student.create(COMPLETE_INFO_PARAMETERS, ROLL_NUMBER_GENERATOR);
-        assertThat(studentResponse.error()).isEqualTo(ResponseError.NULL);
+        assertThat(studentResponse.errors()).isEqualTo(ResponseError.NULL);
     }
 
 }
