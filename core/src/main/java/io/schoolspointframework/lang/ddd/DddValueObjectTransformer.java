@@ -9,7 +9,7 @@ import javax.persistence.Embeddable;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-final class DddValueObjectTransformer extends SchoolspointCompileTimeTransformer {
+public final class DddValueObjectTransformer extends SchoolspointCompileTimeTransformer {
 
     @Override
     protected boolean activateOnlyIf(CtClass ctClass) throws Exception {

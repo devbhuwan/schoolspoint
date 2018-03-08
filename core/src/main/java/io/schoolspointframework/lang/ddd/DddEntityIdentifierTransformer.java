@@ -10,7 +10,7 @@ import javax.persistence.Embeddable;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-final class DddEntityIdentifierTransformer extends SchoolspointCompileTimeTransformer {
+public final class DddEntityIdentifierTransformer extends SchoolspointCompileTimeTransformer {
 
     @Override
     protected boolean activateOnlyIf(CtClass ctClass) throws Exception {

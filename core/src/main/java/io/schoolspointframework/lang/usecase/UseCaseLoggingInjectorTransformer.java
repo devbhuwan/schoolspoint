@@ -9,7 +9,7 @@ import static java.lang.String.format;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public class UseCaseLoggingInjectorTransformer extends SchoolspointRuntimeTransformer {
+public final class UseCaseLoggingInjectorTransformer extends SchoolspointRuntimeTransformer {
 
     @Override
     protected boolean activateOnlyIf(CtClass ctClass) throws Exception {

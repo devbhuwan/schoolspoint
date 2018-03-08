@@ -15,7 +15,7 @@ import static javassist.bytecode.AnnotationsAttribute.visibleTag;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-abstract class SchoolspointTransformer implements ClassFileTransformer {
+public abstract class SchoolspointTransformer implements ClassFileTransformer {
 
     private static final String JAVA_ASSIST_CLASS_PACKAGE_SEPARATOR = ".";
     private final ClassPool classPool = ClassPool.getDefault();
