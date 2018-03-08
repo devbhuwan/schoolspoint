@@ -1,5 +1,7 @@
 package io.schoolspointframework.lang.ddd;
 
+import java.util.Objects;
+
 /**
  * @author Bhuwan Prasad Upadhyay
  */
@@ -13,7 +15,7 @@ public abstract class DddValueObject {
     public abstract int valueHashCode();
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object that) {
+        return Objects.equals(this, that);
     }
 }

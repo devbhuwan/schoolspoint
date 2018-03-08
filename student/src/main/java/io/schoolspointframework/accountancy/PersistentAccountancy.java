@@ -1,12 +1,10 @@
 package io.schoolspointframework.accountancy;
 
 import lombok.NonNull;
-import org.springframework.stereotype.Component;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-@Component
 public class PersistentAccountancy implements Accountancy {
 
     private AccountancyEntryRepository repository;
