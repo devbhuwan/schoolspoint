@@ -4,6 +4,7 @@ import io.schoolspointframework.lang.ddd.ResponseError;
 import io.schoolspointframework.student.usecase.RegisterApplicantUseCase;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ class RestStudentEndpoints implements StudentEndpoints {
     RegisterApplicantUseCase registerApplicantUseCase;
 
     @Override
-    public Set<ResponseError> registerStudent(EndpointStudentInfoParameters params) {
+    public Set<ResponseError> registerStudent(@RequestBody EndpointStudentInfoParameters params) {
         return registerApplicantUseCase.execute(params).errors();
     }
 

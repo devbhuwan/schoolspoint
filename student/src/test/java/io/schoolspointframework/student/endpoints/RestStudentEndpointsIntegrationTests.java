@@ -4,11 +4,14 @@ import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.schoolspointframework.AbstractIntegrationTests;
+import io.schoolspointframework.Json;
 import io.schoolspointframework.Schoolspoint;
+import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
+import static io.restassured.http.ContentType.JSON;
 import static io.schoolspointframework.student.endpoints.StudentEndpoints.BASE_URI;
 import static io.schoolspointframework.student.endpoints.StudentEndpoints.REGISTER;
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -20,13 +23,13 @@ import static org.springframework.http.HttpStatus.OK;
  */
 @SpringBootTest(classes = Schoolspoint.class, webEnvironment = RANDOM_PORT)
 class RestStudentEndpointsIntegrationTests extends AbstractIntegrationTests {
-
+    private static final Matcher<Iterable<Object>> EMPTY_ITEMS = hasItems();
     @LocalServerPort
     private int serverPort;
 
     @Test
-    void givenMissingStudentInfoParameterThenShouldReturnValidationErrors() {
-        ValidatableResponse response = studentEndpoints().body("{}").post(BASE_URI + REGISTER).then();
+    void givenMissingStudentInfoParametersThenShouldReturnValidationErrors() {
+        ValidatableResponse response = studentEndpoints().body("{}").post(applicantRegisterUri()).then();
         response.statusCode(OK.value());
 
         response.body("causedBy",
@@ -43,8 +46,26 @@ class RestStudentEndpointsIntegrationTests extends AbstractIntegrationTests {
                 ));
     }
 
+    @Test
+    void givenCompleteStudentInfoParametersThenShouldReturnEmptyValidationErrors() {
+        final String jsonParams = Json.start()
+                .item("firstName", "BHUWAN")
+                .item("middleName", "PRASAD")
+                .item("lastName", "UPDADHYAY")
+                .lastItem("addressName", "Lamki").json();
+        ValidatableResponse response = studentEndpoints().body(jsonParams).post(applicantRegisterUri()).then();
+        response.statusCode(OK.value());
+        response.body("causedBy", EMPTY_ITEMS);
+        response.body("message", EMPTY_ITEMS);
+    }
+
+    private String applicantRegisterUri() {
+        return BASE_URI + REGISTER;
+    }
+
     private RequestSpecification studentEndpoints() {
-        return RestAssured.with().port(serverPort);
+        return RestAssured.with().contentType(JSON).port(serverPort);
     }
 
 }
+
