@@ -29,8 +29,8 @@ class Name {
 
     static Response<Name> create(String firstName, String middleName, String lastName) {
         return Response.of(Name.class)
-                .raiseIfBlank(firstName, "firstName", "")
-                .raiseIfBlank(lastName, "lastName", "")
+                .raiseIfBlank(firstName, "firstName")
+                .raiseIfBlank(lastName, "lastName")
                 .getOrElse(name(firstName, middleName, lastName), defaultName());
     }
 

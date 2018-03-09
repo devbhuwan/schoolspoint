@@ -2,6 +2,7 @@ package io.schoolspointframework.lang.ddd;
 
 
 import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
+import lombok.Getter;
 import lombok.NonNull;
 
 import static java.lang.String.format;
@@ -12,6 +13,7 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  * @author Bhuwan Prasad Upadhyay
  */
 @DddValueObject
+@Getter
 public class ResponseError implements Comparable<ResponseError> {
     public static final ResponseError NULL = new ResponseError(EMPTY, EMPTY);
     private final String causedBy;
@@ -30,12 +32,12 @@ public class ResponseError implements Comparable<ResponseError> {
         return signal ? new ResponseError(field, message) : ResponseError.NULL;
     }
 
-    public boolean isEmpty() {
-        return this.equals(NULL);
+    private static boolean isEmpty(ResponseError error) {
+        return error.equals(NULL);
     }
 
-    public boolean isNotEmpty() {
-        return !isEmpty();
+    static boolean isNotEmpty(ResponseError error) {
+        return !isEmpty(error);
     }
 
     @Override

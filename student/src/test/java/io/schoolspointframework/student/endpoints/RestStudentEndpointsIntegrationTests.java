@@ -26,10 +26,14 @@ class RestStudentEndpointsIntegrationTests extends AbstractIntegrationTests {
 
     @Test
     void givenMissingStudentInfoParameterThenShouldReturnValidationErrors() {
-        ValidatableResponse validatableResponse = studentEndpoints().body("{}").post(BASE_URI + REGISTER).then();
-        validatableResponse.statusCode(OK.value());
-        validatableResponse.body("[0].causedBy", is("name"));
-        validatableResponse.body("[0].message", is("name must be not blank!"));
+        ValidatableResponse response = studentEndpoints().body("{}").post(BASE_URI + REGISTER).then();
+        response.statusCode(OK.value());
+        response.body("[0].causedBy", is("firstName"));
+        response.body("[0].message", is("firstName must be not blank!"));
+        response.body("[1].causedBy", is("lastName"));
+        response.body("[1].message", is("lastName must be not blank!"));
+        response.body("[2].causedBy", is("addressName"));
+        response.body("[2].message", is("student.address.name.must.be.not.blank"));
     }
 
     private RequestSpecification studentEndpoints() {

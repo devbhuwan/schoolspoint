@@ -10,6 +10,7 @@ import static io.schoolspointframework.lang.ddd.MessageFormats.MUST_BE_NOT_BLANK
 import static io.schoolspointframework.lang.ddd.MessageFormats.MUST_BE_NOT_NULL;
 import static io.schoolspointframework.lang.ddd.Response.failure;
 import static io.schoolspointframework.lang.ddd.Response.success;
+import static io.schoolspointframework.lang.ddd.ResponseError.isNotEmpty;
 import static io.schoolspointframework.lang.ddd.ResponseError.raiseIfF;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -33,7 +34,7 @@ public class ResponseSpec<V> {
     }
 
     private ResponseSpec<V> addIfNotEmptyAndThenReturn(ResponseError error) {
-        if (error.isNotEmpty())
+        if (isNotEmpty(error))
             errors.add(error);
         return _this();
     }
