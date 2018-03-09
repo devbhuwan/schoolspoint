@@ -6,17 +6,13 @@ import org.springframework.context.ApplicationEvent;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public class ApplicationDomainEvent<T> extends ApplicationEvent implements DomainEvent<T> {
+public abstract class ApplicationDomainEvent<T> extends ApplicationEvent implements DomainEvent<T> {
 
     private final T _source;
 
-    private ApplicationDomainEvent(T source) {
-        super(source);
-        this._source = source;
-    }
-
-    public static <E> DomainEvent<E> createEvent(E e) {
-        return new ApplicationDomainEvent<>(e);
+    public ApplicationDomainEvent(T e) {
+        super(e);
+        this._source = e;
     }
 
     @Override
