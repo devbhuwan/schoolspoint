@@ -1,0 +1,4 @@
+option java_package = "com.example.foo.bar";
+message RegisterNewApplicantRequest {
+  required string first_name = 1;
+}
