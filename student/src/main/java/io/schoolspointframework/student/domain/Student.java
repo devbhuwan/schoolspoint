@@ -1,12 +1,13 @@
 package io.schoolspointframework.student.domain;
 
+import io.schoolspointframework.core.SchoolspointPersistable;
 import io.schoolspointframework.lang.ddd.Response;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.function.Supplier;
@@ -20,14 +21,22 @@ import static io.schoolspointframework.student.domain.GradeType.valueOfOrElseGet
 @Entity
 @Table(name = "STUDENTS")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Student extends AbstractPersistable<Long> {
+public class Student extends SchoolspointPersistable<StudentIdentifier> {
 
     static final Student NULL = new Student(Name.NULL, Address.NULL, Grade.NULL, RollNumber.NULL);
     private final Name name;
     private final Address address;
     private final Grade grade;
     private final RollNumber rollNumber;
+    @EmbeddedId
+    private StudentIdentifier studentIdentifier = new StudentIdentifier();
 
+    public Student(Name name, Address address, Grade grade, RollNumber rollNumber) {
+        this.name = name;
+        this.address = address;
+        this.grade = grade;
+        this.rollNumber = rollNumber;
+    }
 
     public static Response<Student> create(@NonNull final StudentInfoParameters params, @NonNull final RollNumberGenerator rollNumberGenerator) {
         Response<Name> name = Name.create(params.getFirstName(), params.getMiddleName(), params.getLastName());
@@ -51,4 +60,8 @@ public class Student extends AbstractPersistable<Long> {
         return () -> new Student(name, address, grade, rollNumber);
     }
 
+    @Override
+    protected StudentIdentifier getIdentifier() {
+        return studentIdentifier;
+    }
 }
