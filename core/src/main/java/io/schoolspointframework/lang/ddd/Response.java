@@ -64,7 +64,7 @@ public class Response<V> {
         return errors;
     }
 
-    public Response<V> onSuccess(Function<V, V> save) {
+    public <T> Response<V> onSuccess(Function<V, T> save) {
         if (isValid())
             save.apply(value);
         return _this();

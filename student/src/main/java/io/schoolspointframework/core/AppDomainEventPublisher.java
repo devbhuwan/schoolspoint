@@ -4,6 +4,8 @@ import io.schoolspointframework.lang.ddd.event.DomainEvent;
 import io.schoolspointframework.lang.ddd.event.DomainEventPublisher;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 /**
  * @author Bhuwan Prasad Upadhyay
  */
@@ -11,7 +13,8 @@ import org.springframework.stereotype.Component;
 public class AppDomainEventPublisher implements DomainEventPublisher {
 
     @Override
-    public <T> void publish(DomainEvent<T> event) {
+    public <T> Optional<Void> publish(DomainEvent<T> event) {
 
+        return Optional.empty();
     }
 }
