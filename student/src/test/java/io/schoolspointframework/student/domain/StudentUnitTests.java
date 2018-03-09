@@ -1,15 +1,15 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.ddd.Response;
-import io.schoolspointframework.core.ddd.ResponseError;
-import org.junit.Test;
+import io.schoolspointframework.lang.ddd.Response;
+import io.schoolspointframework.lang.ddd.ResponseError;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public class StudentUnitTests {
+class StudentUnitTests {
 
     private static final FakeStudentInfoParameters INCOMPLETE_INFO_PARAMETERS = FakeStudentInfoParameters.builder()
             .build();
@@ -29,21 +29,21 @@ public class StudentUnitTests {
     private static final RollNumberGenerator ROLL_NUMBER_GENERATOR = (g) -> (121);
 
     @Test
-    public void rejectIncompleteStudentInfoParameters() {
+    void rejectIncompleteStudentInfoParameters() {
         Response<Student> studentResponse = Student.create(INCOMPLETE_INFO_PARAMETERS, ROLL_NUMBER_GENERATOR);
 
         assertThat(studentResponse.value())
                 .hasFieldOrPropertyWithValue("name", Name.NULL)
                 .hasFieldOrPropertyWithValue("address", Address.NULL)
                 .hasFieldOrPropertyWithValue("grade", Grade.NULL);
-        assertThat(studentResponse.error()).isNotEqualTo(ResponseError.NULL);
+        assertThat(studentResponse.errors()).isNotEqualTo(ResponseError.NULL);
     }
 
 
     @Test
-    public void succeedToCreateStudentWhenGivenCompleteStudentInfoParameters() {
+    void succeedToCreateStudentWhenGivenCompleteStudentInfoParameters() {
         Response<Student> studentResponse = Student.create(COMPLETE_INFO_PARAMETERS, ROLL_NUMBER_GENERATOR);
-        assertThat(studentResponse.error()).isEqualTo(ResponseError.NULL);
+        assertThat(studentResponse.errors()).isEmpty();
     }
 
 }

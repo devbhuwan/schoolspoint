@@ -1,18 +1,15 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.ddd.MessageFormats;
-import io.schoolspointframework.core.ddd.Response;
-import io.schoolspointframework.core.ddd.ValidationError;
-import io.schoolspointframework.core.ddd.annotations.DddValueObject;
+import io.schoolspointframework.lang.ddd.Response;
+import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
-import java.util.Set;
+import java.util.function.Supplier;
 
-import static io.schoolspointframework.core.ddd.ValidationError.raiseIfWithMessageFormat;
 import static org.apache.commons.lang3.StringUtils.*;
 
 /**
@@ -31,16 +28,18 @@ class Name {
     private String lastName;
 
     static Response<Name> create(String firstName, String middleName, String lastName) {
-        Set<ValidationError> errors = validateEntry(firstName, lastName);
-        if (ValidationError.hasErrors(errors))
-            return Response.failure(Name.NULL, errors);
-        return Response.success(new Name(firstName, isBlank(middleName) ? EMPTY : middleName, lastName));
+        return Response.of(Name.class)
+                .raiseIfBlank(firstName, "firstName")
+                .raiseIfBlank(lastName, "lastName")
+                .getOrElse(name(firstName, middleName, lastName), defaultName());
     }
 
-    private static Set<ValidationError> validateEntry(String firstName, String lastName) {
-        return ValidationError.of(
-                raiseIfWithMessageFormat(isBlank(firstName), "firstName", MessageFormats.MUST_BE_NOT_BLANK),
-                raiseIfWithMessageFormat(isBlank(lastName), "lastName", MessageFormats.MUST_BE_NOT_BLANK));
+    private static Supplier<Name> name(String firstName, String middleName, String lastName) {
+        return () -> new Name(firstName, isBlank(middleName) ? EMPTY : middleName, lastName);
+    }
+
+    private static Supplier<Name> defaultName() {
+        return () -> Name.NULL;
     }
 
     @Override

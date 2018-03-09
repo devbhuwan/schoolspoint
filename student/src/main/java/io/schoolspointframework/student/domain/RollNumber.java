@@ -1,18 +1,12 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.ddd.Response;
-import io.schoolspointframework.core.ddd.ValidationError;
-import io.schoolspointframework.core.ddd.annotations.DddValueObject;
+import io.schoolspointframework.lang.ddd.Response;
+import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
 import lombok.*;
 
 import javax.persistence.Embeddable;
-import java.util.Set;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import static io.schoolspointframework.core.ddd.MessageFormats.MUST_BE_NOT_NULL;
-import static io.schoolspointframework.core.ddd.ValidationError.*;
-import static java.util.Objects.isNull;
+import java.util.function.Supplier;
 
 /**
  * @author Bhuwan Prasad Upadhyay
@@ -32,14 +26,17 @@ class RollNumber {
 
     static Response<RollNumber> create(Grade grade, RollNumberGenerator generator) {
         Integer newSequence = generator.newSequence(grade);
-        Set<ValidationError> errors = validateEntry(newSequence);
-        if (hasErrors(errors))
-            return Response.failure(RollNumber.NULL, errors);
-        return Response.success(new RollNumber(newSequence));
+        return Response.of(RollNumber.class)
+                .raiseIfNull(newSequence, "rollNumberSequence")
+                .getOrElse(rollNumber(newSequence), defaultRollNumber());
     }
 
-    private static Set<ValidationError> validateEntry(Integer sequence) {
-        return of(raiseIfWithMessageFormat(isNull(sequence), "sequence", MUST_BE_NOT_NULL));
+    private static Supplier<RollNumber> defaultRollNumber() {
+        return () -> RollNumber.NULL;
+    }
+
+    private static Supplier<RollNumber> rollNumber(Integer sequence) {
+        return () -> new RollNumber(sequence);
     }
 
     Integer plusOne() {

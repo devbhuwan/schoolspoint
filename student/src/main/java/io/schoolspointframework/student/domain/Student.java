@@ -1,22 +1,18 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.ddd.Response;
-import io.schoolspointframework.core.ddd.ValidationError;
+import io.schoolspointframework.core.SchoolspointPersistable;
+import io.schoolspointframework.lang.ddd.Response;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
-import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Optional;
-import java.util.Set;
+import java.util.function.Supplier;
 
-import static io.schoolspointframework.core.ddd.MessageFormats.MUST_BE_NOT_NULL;
-import static io.schoolspointframework.core.ddd.ValidationError.raiseIfWithMessageFormat;
 import static io.schoolspointframework.student.domain.GradeType.valueOfOrElseGetDefault;
-import static java.util.Objects.isNull;
 
 /**
  * @author Bhuwan Prasad Upadhyay
@@ -25,36 +21,47 @@ import static java.util.Objects.isNull;
 @Entity
 @Table(name = "STUDENTS")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Student extends AbstractPersistable<Long> {
+public class Student extends SchoolspointPersistable<StudentIdentifier> {
 
     static final Student NULL = new Student(Name.NULL, Address.NULL, Grade.NULL, RollNumber.NULL);
     private final Name name;
     private final Address address;
     private final Grade grade;
     private final RollNumber rollNumber;
+    @EmbeddedId
+    private StudentIdentifier studentIdentifier = new StudentIdentifier();
 
+    public Student(Name name, Address address, Grade grade, RollNumber rollNumber) {
+        this.name = name;
+        this.address = address;
+        this.grade = grade;
+        this.rollNumber = rollNumber;
+    }
 
     public static Response<Student> create(@NonNull final StudentInfoParameters params, @NonNull final RollNumberGenerator rollNumberGenerator) {
         Response<Name> name = Name.create(params.getFirstName(), params.getMiddleName(), params.getLastName());
         Response<Address> address = Address.create(params.getAddressName(), params.getStreet(), params.getCity(), params.getZipCode());
         Response<Grade> grade = Grade.create(valueOfOrElseGetDefault(params.getGradeType()), params.getGroup());
         Response<RollNumber> rollNumber = RollNumber.create(grade.value(), rollNumberGenerator);
-        Response<Optional<Void>> response = Response.all(name, address, grade, rollNumber);
-        if (Response.hasError(response))
-            return Response.failure(Student.NULL, response.error().validationErrors());
-        Set<ValidationError> errors = validateEntry(name.value(), address.value(), grade.value(), rollNumber.value());
-        if (ValidationError.hasErrors(errors))
-            return Response.failure(Student.NULL, errors);
-        return Response.success(new Student(name.value(), address.value(), grade.value(), rollNumber.value()));
+        return Response
+                .of(Student.class, name, address, grade, rollNumber)
+                .raiseIfNull(name.value(), "studentName")
+                .raiseIfNull(address.value(), "studentAddress")
+                .raiseIfNull(grade.value(), "studentGrade")
+                .raiseIfNull(rollNumber.value(), "studentRollNumber")
+                .getOrElse(student(name.value(), address.value(), grade.value(), rollNumber.value()), defaultStudent());
     }
 
-    private static Set<ValidationError> validateEntry(Name name, Address address, Grade grade, RollNumber rollNumber) {
-        return ValidationError.of(
-                raiseIfWithMessageFormat(isNull(name), "name", MUST_BE_NOT_NULL),
-                raiseIfWithMessageFormat(isNull(address), "address", MUST_BE_NOT_NULL),
-                raiseIfWithMessageFormat(isNull(grade), "grade", MUST_BE_NOT_NULL),
-                raiseIfWithMessageFormat(isNull(rollNumber), "rollNumber", MUST_BE_NOT_NULL)
-        );
+    private static Supplier<Student> defaultStudent() {
+        return () -> Student.NULL;
     }
 
+    private static Supplier<Student> student(Name name, Address address, Grade grade, RollNumber rollNumber) {
+        return () -> new Student(name, address, grade, rollNumber);
+    }
+
+    @Override
+    protected StudentIdentifier getIdentifier() {
+        return studentIdentifier;
+    }
 }

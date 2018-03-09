@@ -1,18 +1,16 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.ddd.Response;
-import io.schoolspointframework.core.ddd.ValidationError;
-import io.schoolspointframework.core.ddd.annotations.DddValueObject;
+import io.schoolspointframework.lang.ddd.Response;
+import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Embeddable;
-import java.util.Set;
+import java.util.function.Supplier;
 
-import static io.schoolspointframework.core.ddd.MessageFormats.MUST_BE_NOT_BLANK;
-import static io.schoolspointframework.core.ddd.ValidationError.*;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -20,6 +18,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
  * @author Bhuwan Prasad Upadhyay
  */
 @DddValueObject
+@EqualsAndHashCode
 @FieldDefaults(makeFinal = true)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(force = true, access = AccessLevel.PACKAGE)
@@ -32,21 +31,21 @@ class Address {
     private String city;
     private String zipCode;
 
+    static Response<Address> create(String name, String street, String city, String zipCode) {
+        return Response.of(Address.class)
+                .raiseIfBlank(name, "addressName", "student.address.name.must.be.not.blank")
+                .getOrElse(address(name, street, city, zipCode), defaultAddress());
+    }
 
-    public static Response<Address> create(String name, String street, String city, String zipCode) {
-        Set<ValidationError> errors = validateEntry(name);
-        if (hasErrors(errors))
-            return Response.failure(Address.NULL, errors);
-        return Response.success(new Address(name,
+    private static Supplier<Address> defaultAddress() {
+        return () -> Address.NULL;
+    }
+
+    private static Supplier<Address> address(String name, String street, String city, String zipCode) {
+        return () -> new Address(name,
                 isBlank(city) ? EMPTY : city,
                 isBlank(city) ? EMPTY : street,
-                isBlank(city) ? EMPTY : zipCode)
-        );
+                isBlank(city) ? EMPTY : zipCode);
     }
-
-    private static Set<ValidationError> validateEntry(String name) {
-        return of(raiseIfWithMessageFormat(isBlank(name), "name", MUST_BE_NOT_BLANK));
-    }
-
 
 }
