@@ -11,7 +11,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import static io.schoolspointframework.student.endpoints.StudentEndpoints.BASE_URI;
 import static io.schoolspointframework.student.endpoints.StudentEndpoints.REGISTER;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -28,12 +28,19 @@ class RestStudentEndpointsIntegrationTests extends AbstractIntegrationTests {
     void givenMissingStudentInfoParameterThenShouldReturnValidationErrors() {
         ValidatableResponse response = studentEndpoints().body("{}").post(BASE_URI + REGISTER).then();
         response.statusCode(OK.value());
-        response.body("[0].causedBy", is("firstName"));
-        response.body("[0].message", is("firstName must be not blank!"));
-        response.body("[1].causedBy", is("lastName"));
-        response.body("[1].message", is("lastName must be not blank!"));
-        response.body("[2].causedBy", is("addressName"));
-        response.body("[2].message", is("student.address.name.must.be.not.blank"));
+
+        response.body("causedBy",
+                hasItems(
+                        "firstName",
+                        "lastName",
+                        "addressName"));
+
+        response.body("message",
+                hasItems(
+                        "firstName must be not blank!",
+                        "lastName must be not blank!",
+                        "student.address.name.must.be.not.blank"
+                ));
     }
 
     private RequestSpecification studentEndpoints() {

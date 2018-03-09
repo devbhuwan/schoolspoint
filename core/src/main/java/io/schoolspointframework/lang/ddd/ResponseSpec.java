@@ -1,6 +1,5 @@
 package io.schoolspointframework.lang.ddd;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -12,6 +11,7 @@ import static io.schoolspointframework.lang.ddd.Response.failure;
 import static io.schoolspointframework.lang.ddd.Response.success;
 import static io.schoolspointframework.lang.ddd.ResponseError.isNotEmpty;
 import static io.schoolspointframework.lang.ddd.ResponseError.raiseIfF;
+import static java.util.Objects.nonNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
 /**
@@ -21,15 +21,11 @@ public class ResponseSpec<V> {
     private final Set<ResponseError> errors = new LinkedHashSet<>();
 
     private ResponseSpec(Set<ResponseError> errors) {
-        if (Objects.nonNull(errors))
+        if (nonNull(errors))
             this.errors.addAll(errors);
     }
 
-    public static <T> ResponseSpec<T> create() {
-        return new ResponseSpec<>(new HashSet<>());
-    }
-
-    public static <T> ResponseSpec<T> create(Set<ResponseError> errors) {
+    static <T> ResponseSpec<T> create(Set<ResponseError> errors) {
         return new ResponseSpec<>(errors);
     }
 
