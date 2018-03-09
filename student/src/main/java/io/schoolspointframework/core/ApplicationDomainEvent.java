@@ -15,7 +15,7 @@ public class ApplicationDomainEvent<T> extends ApplicationEvent implements Domai
         this._source = source;
     }
 
-    public static <E> ApplicationDomainEvent<E> createEvent(E e) {
+    public static <E> DomainEvent<E> createEvent(E e) {
         return new ApplicationDomainEvent<>(e);
     }
 
