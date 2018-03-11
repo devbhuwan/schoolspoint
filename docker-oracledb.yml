@@ -1,0 +1,11 @@
+oracle11g:
+  image: wnameless/oracle-xe-11g
+  ports:
+    - 49161:1521
+#hostname: localhost
+#port: 49161
+#sid: xe
+#username: system
+#password: oracle
+#ssh root@localhost -p 49160
+#password: admin

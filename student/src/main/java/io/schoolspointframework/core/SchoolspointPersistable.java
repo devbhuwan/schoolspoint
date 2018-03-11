@@ -1,5 +1,6 @@
 package io.schoolspointframework.core;
 
+import io.schoolspointframework.lang.ddd.DomainEntity;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.MappedSuperclass;
@@ -11,7 +12,7 @@ import static java.util.Objects.nonNull;
  * @author Bhuwan Prasad Upadhyay
  */
 @MappedSuperclass
-public abstract class SchoolspointPersistable<PK extends SchoolspointIdentifier> implements Persistable<PK> {
+public abstract class SchoolspointPersistable<PK extends SchoolspointIdentifier> implements DomainEntity<PK>, Persistable<PK> {
 
     @Transient
     public boolean isNew() {
@@ -27,5 +28,4 @@ public abstract class SchoolspointPersistable<PK extends SchoolspointIdentifier>
         return getIdentifier();
     }
 
-    protected abstract PK getIdentifier();
 }

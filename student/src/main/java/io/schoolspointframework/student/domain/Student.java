@@ -61,7 +61,7 @@ public class Student extends SchoolspointPersistable<StudentIdentifier> {
     }
 
     @Override
-    protected StudentIdentifier getIdentifier() {
+    public StudentIdentifier getIdentifier() {
         return studentIdentifier;
     }
 }
