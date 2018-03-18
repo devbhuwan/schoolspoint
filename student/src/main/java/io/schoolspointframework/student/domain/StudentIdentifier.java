@@ -1,6 +1,6 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.SchoolspointIdentifier;
+import io.schoolspointframework.lang.ddd.SchoolspointIdentifier;
 
 import javax.persistence.Embeddable;
 

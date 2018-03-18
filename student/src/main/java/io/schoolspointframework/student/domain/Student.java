@@ -1,7 +1,7 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.SchoolspointPersistable;
 import io.schoolspointframework.lang.ddd.Response;
+import io.schoolspointframework.lang.ddd.SchoolspointPersistable;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

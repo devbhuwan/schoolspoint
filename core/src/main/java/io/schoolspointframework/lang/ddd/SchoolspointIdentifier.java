@@ -1,6 +1,5 @@
-package io.schoolspointframework.core;
+package io.schoolspointframework.lang.ddd;
 
-import io.schoolspointframework.lang.ddd.EntityIdentifier;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 

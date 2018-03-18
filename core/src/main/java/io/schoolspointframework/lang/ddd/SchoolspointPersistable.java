@@ -1,6 +1,5 @@
-package io.schoolspointframework.core;
+package io.schoolspointframework.lang.ddd;
 
-import io.schoolspointframework.lang.ddd.DomainEntity;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.MappedSuperclass;
