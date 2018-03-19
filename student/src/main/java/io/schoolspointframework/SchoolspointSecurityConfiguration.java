@@ -6,5 +6,5 @@ import org.springframework.context.annotation.Configuration;
  * @author Bhuwan Prasad Upadhyay
  */
 @Configuration
-public class SchoolspointWebAutoConfiguration {
+public class SchoolspointSecurityConfiguration {
 }
