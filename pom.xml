@@ -18,6 +18,7 @@
         <module>core</module>
         <module>student</module>
         <module>accountancy</module>
+        <module>protobufs</module>
     </modules>
 
     <packaging>pom</packaging>

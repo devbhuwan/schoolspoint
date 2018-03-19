@@ -1,6 +1,6 @@
 package io.schoolspointframework.student.event;
 
-import io.schoolspointframework.lang.ddd.event.ApplicationDomainEvent;
+import io.schoolspointframework.core.ApplicationDomainEvent;
 import io.schoolspointframework.student.domain.Student;
 
 /**
