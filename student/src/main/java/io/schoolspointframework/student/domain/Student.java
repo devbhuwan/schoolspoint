@@ -39,11 +39,11 @@ public class Student extends SchoolspointPersistable<StudentIdentifier> {
         this.rollNumber = rollNumber;
     }
 
-    public static Response<Student> create(@NonNull final NewApplicant params,
+    public static Response<Student> create(@NonNull final NewApplicant applicant,
                                            @NonNull final RollNumberGenerator rollNumberGenerator) {
-        Response<Name> name = Name.create(params.getFirstName(), params.getMiddleName(), params.getLastName());
-        Response<Address> address = Address.create(params.getAddressName(), params.getStreet(), params.getCity(), params.getZipCode());
-        Response<Grade> grade = Grade.create(valueOfOrElseGetDefault(params.getGradeType()), params.getGroup());
+        Response<Name> name = Name.create(applicant.getFirstName(), applicant.getMiddleName(), applicant.getLastName());
+        Response<Address> address = Address.create(applicant.getAddressName(), applicant.getStreet(), applicant.getCity(), applicant.getZipCode());
+        Response<Grade> grade = Grade.create(valueOfOrElseGetDefault(applicant.getGradeType()), applicant.getGroup());
         Response<RollNumber> rollNumber = RollNumber.create(grade.value(), rollNumberGenerator);
         return Response
                 .of(Student.class, name, address, grade, rollNumber)
