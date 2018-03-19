@@ -17,7 +17,7 @@ class StudentPaymentEntryUnitTests {
         FeeAccountancy accountancy = (grade) -> TEN;
         Response<StudentPaymentEntry> response
                 = StudentPaymentEntry.create(newBuilder()
-                .build(), accountancy);
-        assertThat(response.errors()).hasSize(1);
+                .buildPartial(), accountancy);
+        assertThat(response.errors()).hasSize(2);
     }
 }

@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 @Slf4j
-public class KafkaAccountancyEventEndpoints implements AccountancyEventEndpoints {
+public class KafkaAccountancyStreamEndpoints implements AccountancyEventEndpoints {
 
     private @NonNull
     final Accountancy accountancy;
