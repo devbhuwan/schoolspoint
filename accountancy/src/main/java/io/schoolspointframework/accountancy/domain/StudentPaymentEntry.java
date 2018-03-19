@@ -41,7 +41,7 @@ public class StudentPaymentEntry extends SchoolspointPersistable<StudentPaymentE
                 .raiseIfBlank(params.getGradeName(), "gradeName")
                 .raiseIfNull(params.getPaidAmount(), "paidAmount")
                 .raiseIfLessThenZero(params.getPaidAmount(), "paidAmount")
-                .raiseIfFalse(isPaidAmountEqualToFee(params, accountancy), "paidAmount", format("paidAmount not equal with fee for grade {%s}", params.getGradeName()))
+                .raiseIfFalse(isPaidAmountEqualToFee(params, accountancy), "paidAmount", format("paidAmount not equal with fee for grade %s", params.getGradeName()))
                 .getOrElse(entry(params, accountancy), defaultEntry());
     }
 
