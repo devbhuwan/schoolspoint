@@ -1,6 +1,8 @@
 package io.schoolspointframework.student.endpoints;
 
 import io.schoolspointframework.lang.ddd.ResponseError;
+import io.schoolspointframework.student.model.StudentProtos;
+import io.schoolspointframework.student.model.StudentProtos.NewApplicant;
 import io.schoolspointframework.student.usecase.RegisterApplicantUseCase;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +24,8 @@ class RestStudentEndpoints implements StudentEndpoints {
     RegisterApplicantUseCase registerApplicantUseCase;
 
     @Override
-    public Set<ResponseError> registerStudent(@RequestBody EndpointStudentInfoParameters params) {
-        return registerApplicantUseCase.execute(params).errors();
+    public Set<ResponseError> registerStudent(@RequestBody NewApplicant applicant) {
+        return registerApplicantUseCase.execute(applicant).errors();
     }
 
 }

@@ -11,6 +11,12 @@
 
     <artifactId>schoolspoint-protobufs</artifactId>
 
+    <properties>
+        <protobuf>3.5.1</protobuf>
+        <proto.src>${project.basedir}/src/main/resources</proto.src>
+        <generated.src>${project.build.directory}/generated-sources/annotations</generated.src>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.google.protobuf</groupId>
@@ -22,25 +28,17 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.5.1</version>
+                <configuration>
+                    <protocExecutable>/usr/local/bin/protoc</protocExecutable>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>generate-sources</id>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <tasks>
-                                <mkdir dir="generated"/>
-                                <exec executable="protoc">
-                                    <arg value="--java_out=generated"/>
-                                    <arg value="resources/student/student_payment_entry_info_params.proto"/>
-                                </exec>
-                            </tasks>
-                            <sourceRoot>generated-sources/annotations</sourceRoot>
-                        </configuration>
                         <goals>
-                            <goal>run</goal>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
                         </goals>
                     </execution>
                 </executions>

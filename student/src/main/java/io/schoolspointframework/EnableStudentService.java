@@ -3,7 +3,6 @@ package io.schoolspointframework;
 import io.schoolspointframework.EnableStudentService.SchoolspointSecurityAutoConfiguration;
 import io.schoolspointframework.EnableStudentService.SchoolspointStreamAutoConfiguration;
 import io.schoolspointframework.EnableStudentService.SchoolspointWebAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +22,6 @@ import java.lang.annotation.*;
         SchoolspointStreamAutoConfiguration.class
 })
 @EntityScan
-@SpringBootApplication
 public @interface EnableStudentService {
 
     @Configuration

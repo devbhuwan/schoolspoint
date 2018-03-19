@@ -2,6 +2,7 @@ package io.schoolspointframework.accountancy.domain;
 
 import io.schoolspointframework.lang.ddd.Response;
 import io.schoolspointframework.lang.ddd.SchoolspointPersistable;
+import io.schoolspointframework.student.model.StudentProtos.ApplicantRegisteredPayload;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.function.Supplier;
 
 import static java.lang.String.format;
+import static java.math.BigDecimal.valueOf;
 
 /**
  * @author Bhuwan Prasad Upadhyay
@@ -33,24 +35,25 @@ public class StudentPaymentEntry extends SchoolspointPersistable<StudentPaymentE
         return () -> StudentPaymentEntry.NULL;
     }
 
-    public static Response<StudentPaymentEntry> create(StudentPaymentEntryInfoParams params,
+    public static Response<StudentPaymentEntry> create(ApplicantRegisteredPayload payload,
                                                        FeeAccountancy accountancy) {
+
         return Response
                 .of(StudentPaymentEntry.class)
-                .raiseIfNull(params.getPaidBy(), "paidBy")
-                .raiseIfBlank(params.getGradeName(), "gradeName")
-                .raiseIfNull(params.getPaidAmount(), "paidAmount")
-                .raiseIfLessThenZero(params.getPaidAmount(), "paidAmount")
-                .raiseIfFalse(isPaidAmountEqualToFee(params, accountancy), "paidAmount", format("paidAmount not equal with fee for grade %s", params.getGradeName()))
-                .getOrElse(entry(params, accountancy), defaultEntry());
+                .raiseIfNull(payload.getPaidBy(), "paidBy")
+                .raiseIfBlank(payload.getGradeName(), "gradeName")
+                .raiseIfNull(payload.getPaidAmount(), "paidAmount")
+                .raiseIfLessThenZero(valueOf(payload.getPaidAmount()), "paidAmount")
+                .raiseIfFalse(isPaidAmountEqualToFee(payload, accountancy), "paidAmount", format("paidAmount not equal with fee for grade %s", payload.getGradeName()))
+                .getOrElse(entry(payload, accountancy), defaultEntry());
     }
 
-    private static boolean isPaidAmountEqualToFee(StudentPaymentEntryInfoParams params, FeeAccountancy accountancy) {
-        return accountancy.getFee(params.getGradeName()).equals(params.getPaidAmount());
+    private static boolean isPaidAmountEqualToFee(ApplicantRegisteredPayload payload, FeeAccountancy accountancy) {
+        return accountancy.getFee(payload.getGradeName()).equals(payload.getPaidAmount());
     }
 
-    private static Supplier<StudentPaymentEntry> entry(StudentPaymentEntryInfoParams params, FeeAccountancy accountancy) {
-        return () -> new StudentPaymentEntry(params.getPaidBy(), accountancy.getFee(params.getGradeName()));
+    private static Supplier<StudentPaymentEntry> entry(ApplicantRegisteredPayload payload, FeeAccountancy accountancy) {
+        return () -> new StudentPaymentEntry(null, accountancy.getFee(payload.getGradeName()));
     }
 
     @Override

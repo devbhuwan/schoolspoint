@@ -2,6 +2,7 @@ package io.schoolspointframework.student.domain;
 
 import io.schoolspointframework.lang.ddd.Response;
 import io.schoolspointframework.lang.ddd.SchoolspointPersistable;
+import io.schoolspointframework.student.model.StudentProtos.NewApplicant;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,7 +39,8 @@ public class Student extends SchoolspointPersistable<StudentIdentifier> {
         this.rollNumber = rollNumber;
     }
 
-    public static Response<Student> create(@NonNull final StudentInfoParameters params, @NonNull final RollNumberGenerator rollNumberGenerator) {
+    public static Response<Student> create(@NonNull final NewApplicant params,
+                                           @NonNull final RollNumberGenerator rollNumberGenerator) {
         Response<Name> name = Name.create(params.getFirstName(), params.getMiddleName(), params.getLastName());
         Response<Address> address = Address.create(params.getAddressName(), params.getStreet(), params.getCity(), params.getZipCode());
         Response<Grade> grade = Grade.create(valueOfOrElseGetDefault(params.getGradeType()), params.getGroup());

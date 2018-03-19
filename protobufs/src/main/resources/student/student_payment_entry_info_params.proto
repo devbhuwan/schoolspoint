@@ -1,9 +1,0 @@
-syntax = "proto3";
-
-option java_package = "io.schoolspointframework.student.domain";
-
-message StudentPaymentEntryInfoParams {
-    string gradeName = 1;
-    string paidBy = 2;
-    string paidAmount = 3;
-}

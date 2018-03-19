@@ -1,6 +1,7 @@
 package io.schoolspointframework.student.domain;
 
 import io.schoolspointframework.AbstractIntegrationTests;
+import io.schoolspointframework.student.model.StudentProtos.NewApplicant;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -13,17 +14,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 class RollNumberGeneratorIntegrationTests extends AbstractIntegrationTests {
     private static final Grade GRADE = Grade.create(GradeType.TEN, "A").value();
-    private static final FakeStudentInfoParameters COMPLETE_INFO_PARAMETERS = FakeStudentInfoParameters.builder()
-            .firstName("Bhuwan")
-            .middleName("Prasad")
-            .lastName("Upadhyay")
-            .addressName("Lamki")
-            .street("Lamki")
-            .city("Lamki")
-            .gradeType(GRADE.getGradeType().name())
-            .group(GRADE.getGradeGroup())
-            .zipCode("123213")
-            .group("A")
+    private static final NewApplicant COMPLETE_INFO_PARAMETERS = NewApplicant.newBuilder()
+            .setFirstName("Bhuwan")
+            .setMiddleName("Prasad")
+            .setLastName("Upadhyay")
+            .setAddressName("Lamki")
+            .setStreet("Lamki")
+            .setCity("Lamki")
+            .setGradeType(GRADE.getGradeType().name())
+            .setGroup(GRADE.getGradeGroup())
+            .setZipCode("123213")
             .build();
 
     @Autowired

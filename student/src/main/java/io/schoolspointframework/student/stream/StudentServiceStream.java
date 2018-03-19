@@ -6,4 +6,5 @@ package io.schoolspointframework.student.stream;
 public interface StudentServiceStream {
     String OUTPUT = "student-service-out";
 
+    Void send();
 }

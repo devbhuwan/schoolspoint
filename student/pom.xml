@@ -26,6 +26,11 @@
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.developerbhuwan</groupId>
+            <artifactId>schoolspoint-protobufs</artifactId>
+            <version>2.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>

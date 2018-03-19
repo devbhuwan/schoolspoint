@@ -1,0 +1,22 @@
+syntax = "proto2";
+
+option java_package = "io.schoolspointframework.student.model";
+option java_outer_classname = "StudentProtos";
+
+message ApplicantRegisteredPayload {
+    required string gradeName = 1;
+    required string paidBy = 2;
+    required double paidAmount = 3;
+}
+
+message NewApplicant {
+    required string firstName = 1;
+    required string lastName = 2;
+    optional string middleName = 3;
+    required string addressName = 4;
+    optional string gradeType = 5;
+    optional string group = 6;
+    optional string street = 7;
+    optional string zipCode = 8;
+    optional string city = 9;
+}
