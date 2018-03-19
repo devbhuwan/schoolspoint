@@ -1,1 +1,4 @@
 syntax = "proto2";
+
+option java_package = "io.schoolspointframework.core.model";
+option java_outer_classname = "SchoolspointProtos";
