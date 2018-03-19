@@ -22,7 +22,7 @@ import java.lang.annotation.*;
         SchoolspointStreamAutoConfiguration.class
 })
 @EntityScan
-public @interface EnableStudentService {
+@interface EnableStudentService {
 
     @Configuration
     @ConditionalOnMissingBean(SchoolspointWebConfiguration.class)
