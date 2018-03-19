@@ -26,8 +26,8 @@ public class RegisterApplicantUseCase implements DddUseCase<NewApplicant, Option
     private final StudentManager<Student> studentManager;
 
     @Override
-    public Response<Optional<Void>> execute(NewApplicant params) {
-        return Student.create(params, rollNumberGenerator)
+    public Response<Optional<Void>> execute(NewApplicant applicant) {
+        return Student.create(applicant, rollNumberGenerator)
                 .onSuccess(studentManager::save)
                 .thenReturn();
     }
