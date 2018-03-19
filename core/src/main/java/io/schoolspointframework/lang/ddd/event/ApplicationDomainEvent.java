@@ -1,4 +1,4 @@
-package io.schoolspointframework.core;
+package io.schoolspointframework.lang.ddd.event;
 
 import io.schoolspointframework.lang.ddd.event.DomainEvent;
 import org.springframework.context.ApplicationEvent;

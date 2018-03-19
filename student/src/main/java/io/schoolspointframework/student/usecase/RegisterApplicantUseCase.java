@@ -1,7 +1,6 @@
 package io.schoolspointframework.student.usecase;
 
 import io.schoolspointframework.lang.ddd.Response;
-import io.schoolspointframework.lang.ddd.event.DomainEventPublisher;
 import io.schoolspointframework.lang.ddd.usecase.DddUseCase;
 import io.schoolspointframework.lang.usecase.UseCaseDesign;
 import io.schoolspointframework.student.domain.RollNumberGenerator;
@@ -25,7 +24,6 @@ public class RegisterApplicantUseCase implements DddUseCase<NewApplicant, Option
 
     private final RollNumberGenerator rollNumberGenerator;
     private final StudentManager<Student> studentManager;
-    private final DomainEventPublisher publisher;
 
     @Override
     public Response<Optional<Void>> execute(NewApplicant params) {
