@@ -11,9 +11,11 @@ import lombok.NonNull;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import static io.schoolspointframework.student.domain.GradeType.valueOfOrElseGetDefault;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 /**
  * @author Bhuwan Prasad Upadhyay
@@ -65,5 +67,9 @@ public class Student extends SchoolspointPersistable<StudentIdentifier> {
     @Override
     public StudentIdentifier getIdentifier() {
         return studentIdentifier;
+    }
+
+    public String getGradeType() {
+        return Optional.ofNullable(grade).map(Grade::getGradeType).map(Enum::name).orElse(EMPTY);
     }
 }
