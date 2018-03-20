@@ -3,10 +3,7 @@ package io.schoolspointframework.student.domain;
 import io.schoolspointframework.lang.ddd.Response;
 import io.schoolspointframework.lang.ddd.SchoolspointPersistable;
 import io.schoolspointframework.student.model.StudentProtos.NewApplicant;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -24,6 +21,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 @Entity
 @Table(name = "STUDENTS")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(force = true, access = AccessLevel.PACKAGE)
 public class Student extends SchoolspointPersistable<StudentIdentifier> {
 
     static final Student NULL = new Student(Name.NULL, Address.NULL, Grade.NULL, RollNumber.NULL);

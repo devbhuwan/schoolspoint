@@ -1,18 +1,19 @@
 package io.schoolspointframework.student.domain;
 
+import io.schoolspointframework.Schoolspoint;
 import io.schoolspointframework.SchoolspointExtension;
 import io.schoolspointframework.student.model.StudentProtos.NewApplicant;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-@DataJpaTest
+@SpringBootTest(classes = Schoolspoint.class)
 @ExtendWith(SchoolspointExtension.class)
 class RollNumberGeneratorIntegrationTests {
     private static final Grade GRADE = Grade.create(GradeType.TEN, "A").value();

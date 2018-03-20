@@ -1,11 +1,12 @@
 package io.schoolspointframework.student.usecase;
 
+import io.schoolspointframework.Schoolspoint;
 import io.schoolspointframework.SchoolspointExtension;
 import io.schoolspointframework.student.model.StudentProtos.NewApplicant;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Bhuwan Prasad Upadhyay
  */
 @ExtendWith(SchoolspointExtension.class)
-@DataJpaTest
+@SpringBootTest(classes = Schoolspoint.class)
 class RegisterApplicantUseCaseIntegrationTests {
 
     private static final NewApplicant INCOMPLETE_STUDENT_INFO_PARAMETERS =
@@ -31,7 +32,6 @@ class RegisterApplicantUseCaseIntegrationTests {
                     .setZipCode("123213")
                     .setGroup("A")
                     .build();
-
     @Autowired
     private RegisterApplicantUseCase registerApplicantUseCase;
 
