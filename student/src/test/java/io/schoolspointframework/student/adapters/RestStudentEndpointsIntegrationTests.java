@@ -3,11 +3,12 @@ package io.schoolspointframework.student.adapters;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import io.schoolspointframework.AbstractIntegrationTests;
 import io.schoolspointframework.Json;
 import io.schoolspointframework.Schoolspoint;
+import io.schoolspointframework.SchoolspointExtension;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
@@ -21,8 +22,9 @@ import static org.springframework.http.HttpStatus.OK;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
+@ExtendWith(SchoolspointExtension.class)
 @SpringBootTest(classes = Schoolspoint.class, webEnvironment = RANDOM_PORT)
-class RestStudentEndpointsIntegrationTests extends AbstractIntegrationTests {
+class RestStudentEndpointsIntegrationTests {
     private static final Matcher<Iterable<Object>> EMPTY_ITEMS = hasItems();
     @LocalServerPort
     private int serverPort;

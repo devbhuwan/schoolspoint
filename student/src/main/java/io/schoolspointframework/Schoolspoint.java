@@ -6,8 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-@EnableStudentService
 @SpringBootApplication
+@EnableServicePersistence
+@EnableServiceStreams
+@EnableServiceEndpoints
 public class Schoolspoint {
 
     public static void main(String[] args) {

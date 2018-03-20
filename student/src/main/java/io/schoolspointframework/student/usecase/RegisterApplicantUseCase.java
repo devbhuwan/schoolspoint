@@ -3,7 +3,7 @@ package io.schoolspointframework.student.usecase;
 import io.schoolspointframework.lang.ddd.Response;
 import io.schoolspointframework.lang.ddd.usecase.DddUseCase;
 import io.schoolspointframework.lang.usecase.UseCaseDesign;
-import io.schoolspointframework.student.adapters.SchoolspointChannel;
+import io.schoolspointframework.student.adapters.StudentServiceStreams;
 import io.schoolspointframework.student.domain.RollNumberGenerator;
 import io.schoolspointframework.student.domain.Student;
 import io.schoolspointframework.student.domain.StudentManager;
@@ -27,7 +27,7 @@ public class RegisterApplicantUseCase implements DddUseCase<NewApplicant, Option
 
     private final RollNumberGenerator rollNumberGenerator;
     private final StudentManager<Student> studentManager;
-    private final SchoolspointChannel channel;
+    private final StudentServiceStreams channel;
 
     @Override
     public Response<Optional<Void>> execute(NewApplicant applicant) {
