@@ -96,11 +96,5 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>central-maven</id>
-            <url>http://central.maven.org/maven2/</url>
-        </repository>
-    </repositories>
 
 </project>

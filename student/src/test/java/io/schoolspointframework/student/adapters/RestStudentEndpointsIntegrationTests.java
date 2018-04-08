@@ -1,5 +1,6 @@
 package io.schoolspointframework.student.adapters;
 
+import com.google.common.net.MediaType;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
-import static io.restassured.http.ContentType.JSON;
 import static io.schoolspointframework.student.adapters.RestStudentEndpoints.BASE_URI;
 import static io.schoolspointframework.student.adapters.RestStudentEndpoints.REGISTER;
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -66,7 +66,12 @@ class RestStudentEndpointsIntegrationTests {
     }
 
     private RequestSpecification studentEndpoints() {
-        return RestAssured.with().contentType(JSON).port(serverPort);
+        return RestAssured.given()
+                .log()
+                .all()
+                .with()
+                .contentType(MediaType.PROTOBUF.type())
+                .port(serverPort);
     }
 
 }
