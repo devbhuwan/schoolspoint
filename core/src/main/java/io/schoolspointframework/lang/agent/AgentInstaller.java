@@ -1,19 +1,17 @@
 package io.schoolspointframework.lang.agent;
 
-import io.schoolspointframework.lang.ddd.DddEntityIdentifierTransformer;
-import io.schoolspointframework.lang.ddd.DddEntityTransformer;
-import io.schoolspointframework.lang.ddd.DddValueObjectTransformer;
+import io.schoolspointframework.lang.ddd.Response;
 import io.schoolspointframework.lang.transformer.SchoolspointTransformer;
-import io.schoolspointframework.lang.usecase.UseCaseLoggingInjectorTransformer;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.Instrumentation;
 import java.util.Optional;
 
-@Slf4j
 public class AgentInstaller {
 
+    private static final Logger LOG = LoggerFactory.getLogger(Response.class);
     private static volatile Instrumentation instrumentation;
 
     private AgentInstaller() {
@@ -34,7 +32,6 @@ public class AgentInstaller {
 
     public static void premain(String agentArguments, Instrumentation instrumentation) {
         AgentInstaller.instrumentation = instrumentation;
-        addTransformers(new UseCaseLoggingInjectorTransformer(), new DddEntityIdentifierTransformer(), new DddEntityTransformer(), new DddValueObjectTransformer());
     }
 
     public static void agentmain(String agentArguments, Instrumentation instrumentation) {

@@ -1,8 +1,8 @@
 package io.schoolspointframework.accountancy.domain;
 
+import io.github.devbhuwan.student.spec.ApplicantRegisteredPayload;
 import io.schoolspointframework.lang.ddd.Response;
 import io.schoolspointframework.lang.ddd.SchoolspointPersistable;
-import io.schoolspointframework.student.model.StudentProtos.ApplicantRegisteredPayload;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -43,7 +43,7 @@ public class StudentPaymentEntry extends SchoolspointPersistable<StudentPaymentE
                 .raiseIfNull(payload.getPaidBy(), "paidBy")
                 .raiseIfBlank(payload.getGradeName(), "gradeName")
                 .raiseIfNull(payload.getPaidAmount(), "paidAmount")
-                .raiseIfLessThenZero(valueOf(payload.getPaidAmount()), "paidAmount")
+                .raiseIfLessThenZero(valueOf(payload.getPaidAmount().doubleValue()), "paidAmount")
                 .raiseIfFalse(isPaidAmountEqualToFee(payload, accountancy), "paidAmount", format("paidAmount not equal with fee for grade %s", payload.getGradeName()))
                 .getOrElse(entry(payload, accountancy), defaultEntry());
     }

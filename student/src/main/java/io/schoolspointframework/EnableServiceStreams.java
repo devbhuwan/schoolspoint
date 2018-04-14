@@ -12,6 +12,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @EnableBinding(StudentServiceStreams.class)
-public @interface EnableServiceStreams {
+@interface EnableServiceStreams {
 
 }

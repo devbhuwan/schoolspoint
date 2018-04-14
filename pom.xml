@@ -9,15 +9,16 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>io.developerbhuwan</groupId>
+    <groupId>io.github.devbhuwan</groupId>
     <artifactId>schoolspoint-framework</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>1.0.0.BUILD-SNAPSHOT</version>
 
     <modules>
+        <module>tools</module>
+        <module>specs</module>
         <module>core</module>
         <module>student</module>
         <module>accountancy</module>
-        <module>protobufs</module>
     </modules>
 
     <packaging>pom</packaging>
@@ -27,20 +28,17 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.10</java.version>
+        <java.version>1.9</java.version>
         <junit.jupiter.version>5.1.0</junit.jupiter.version>
         <junit.platform.version>1.1.0</junit.platform.version>
         <assertj.version>3.8.0</assertj.version>
-        <root>/home/developerbhuwan/bitdrafter/github/devbhuwan/schoolspoint</root>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.21</version>
-            <systemPath>${root}/libs/lombok-edge.jar</systemPath>
-            <scope>system</scope>
+            <version>1.16.20</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -101,16 +99,8 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <release>10</release>
                     <compilerArgument>-parameters</compilerArgument>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm</artifactId>
-                        <version>6.1.1</version> <!-- Use newer version of ASM -->
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>

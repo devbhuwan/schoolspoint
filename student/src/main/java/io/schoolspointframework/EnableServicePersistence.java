@@ -11,6 +11,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @EntityScan
-public @interface EnableServicePersistence {
+@interface EnableServicePersistence {
 
 }

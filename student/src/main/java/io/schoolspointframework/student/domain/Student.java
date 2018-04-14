@@ -1,18 +1,16 @@
 package io.schoolspointframework.student.domain;
 
+import io.github.devbhuwan.student.spec.NewApplicant;
 import io.schoolspointframework.lang.ddd.Response;
 import io.schoolspointframework.lang.ddd.SchoolspointPersistable;
-import io.schoolspointframework.student.model.StudentProtos.NewApplicant;
 import lombok.*;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 import static io.schoolspointframework.student.domain.GradeType.valueOfOrElseGetDefault;
-import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 /**
  * @author Bhuwan Prasad Upadhyay
@@ -41,9 +39,13 @@ public class Student extends SchoolspointPersistable<StudentIdentifier> {
 
     public static Response<Student> create(@NonNull final NewApplicant applicant,
                                            @NonNull final RollNumberGenerator rollNumberGenerator) {
-        Response<Name> name = Name.create(applicant.getFirstName(), applicant.getMiddleName(), applicant.getLastName());
-        Response<Address> address = Address.create(applicant.getAddressName(), applicant.getStreet(), applicant.getCity(), applicant.getZipCode());
-        Response<Grade> grade = Grade.create(valueOfOrElseGetDefault(applicant.getGradeType()), applicant.getGroup());
+        NewApplicant.NameType nameType = applicant.getName();
+        NewApplicant.AddressType addressType = applicant.getAddress();
+        NewApplicant.GradeType gradeType = applicant.getGrade();
+
+        Response<Name> name = Name.create(nameType.getFirstName(), nameType.getMiddleName(), nameType.getLastName());
+        Response<Address> address = Address.create(addressType.getName(), addressType.getStreet(), addressType.getCity(), addressType.getZipCode());
+        Response<Grade> grade = Grade.create(valueOfOrElseGetDefault(gradeType.getGradeType()), gradeType.getGroup());
         Response<RollNumber> rollNumber = RollNumber.create(grade.value(), rollNumberGenerator);
         return Response
                 .of(Student.class, name, address, grade, rollNumber)
@@ -67,7 +69,4 @@ public class Student extends SchoolspointPersistable<StudentIdentifier> {
         return studentIdentifier;
     }
 
-    public String getGradeType() {
-        return Optional.ofNullable(grade).map(Grade::getGradeType).map(Enum::name).orElse(EMPTY);
-    }
 }

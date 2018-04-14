@@ -1,0 +1,21 @@
+#%RAML 1.0
+
+title: Student Service
+version: v1
+mediaType: application/json
+
+uses:
+  students: ./dataTypes/students.raml
+
+/students:
+  displayName: Student Service
+  /register:
+    post:
+      description: register new applicant
+      body: students.NewApplicant
+  /{studentId}:
+    get:
+      description: retrieve student detail
+      responses:
+        200:
+          body: students.StudentResponse

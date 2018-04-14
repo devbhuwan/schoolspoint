@@ -1,7 +1,7 @@
 package io.schoolspointframework.student.adapters;
 
+import io.github.devbhuwan.student.spec.NewApplicant;
 import io.schoolspointframework.lang.ddd.ResponseError;
-import io.schoolspointframework.student.model.StudentProtos.NewApplicant;
 import io.schoolspointframework.student.usecase.RegisterApplicantUseCase;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

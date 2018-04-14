@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>schoolspoint-framework</artifactId>
+        <groupId>io.github.devbhuwan</groupId>
+        <version>1.0.0.BUILD-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>specification</artifactId>
+    <packaging>pom</packaging>
+
+    <properties>
+        <raml.codegen.skip>true</raml.codegen.skip>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.github.devbhuwan</groupId>
+                <artifactId>raml-codegen-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <id>pojo-code-gen</id>
+                        <goals>
+                            <goal>gen-raml</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${raml.codegen.skip}</skip>
+                            <defaultPackage>${raml.codegen.package}</defaultPackage>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <modules>
+        <module>student</module>
+    </modules>
+
+</project>

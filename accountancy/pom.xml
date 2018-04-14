@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>schoolspoint-framework</artifactId>
-        <groupId>io.developerbhuwan</groupId>
-        <version>2.0.1-SNAPSHOT</version>
+        <groupId>io.github.devbhuwan</groupId>
+        <version>1.0.0.BUILD-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,9 +13,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.developerbhuwan</groupId>
+            <groupId>io.github.devbhuwan</groupId>
             <artifactId>schoolspoint-core</artifactId>
-            <version>2.0.1-SNAPSHOT</version>
+            <version>1.0.0.BUILD-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -26,9 +26,9 @@
             <artifactId>spring-data-commons</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.developerbhuwan</groupId>
-            <artifactId>schoolspoint-protobufs</artifactId>
-            <version>2.0.1-SNAPSHOT</version>
+            <groupId>io.github.devbhuwan</groupId>
+            <artifactId>student-specification</artifactId>
+            <version>1.0.0.BUILD-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

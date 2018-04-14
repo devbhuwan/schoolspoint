@@ -1,6 +1,8 @@
 package io.schoolspointframework.student.domain;
 
+import io.github.devbhuwan.student.spec.NewApplicant;
 import io.schoolspointframework.lang.ddd.Response;
+import io.schoolspointframework.lang.ddd.ResponseSpec;
 import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

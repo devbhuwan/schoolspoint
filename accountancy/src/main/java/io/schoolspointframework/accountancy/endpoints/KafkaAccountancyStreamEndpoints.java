@@ -1,9 +1,9 @@
 package io.schoolspointframework.accountancy.endpoints;
 
+import io.github.devbhuwan.student.spec.ApplicantRegisteredPayload;
 import io.schoolspointframework.accountancy.domain.Accountancy;
 import io.schoolspointframework.accountancy.domain.AccountancyEventEndpoints;
 import io.schoolspointframework.accountancy.domain.StudentPaymentEntry;
-import io.schoolspointframework.student.model.StudentProtos.ApplicantRegisteredPayload;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

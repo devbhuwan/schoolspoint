@@ -1,8 +1,9 @@
 package io.schoolspointframework.student.domain;
 
+import io.github.devbhuwan.student.spec.NewApplicant;
+import io.github.devbhuwan.student.spec.NewApplicantImpl;
 import io.schoolspointframework.Schoolspoint;
 import io.schoolspointframework.SchoolspointExtension;
-import io.schoolspointframework.student.model.StudentProtos.NewApplicant;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SchoolspointExtension.class)
 class RollNumberGeneratorIntegrationTests {
     private static final Grade GRADE = Grade.create(GradeType.TEN, "A").value();
-    private static final NewApplicant COMPLETE_INFO_PARAMETERS = NewApplicant.newBuilder()
-            .setFirstName("Bhuwan")
-            .setMiddleName("Prasad")
-            .setLastName("Upadhyay")
-            .setAddressName("Lamki")
-            .setStreet("Lamki")
-            .setCity("Lamki")
-            .setGradeType(GRADE.getGradeType().name())
-            .setGroup(GRADE.getGradeGroup())
-            .setZipCode("123213")
-            .build();
-
     @Autowired
     private RollNumberGenerator rollNumberGenerator;
     @Autowired
@@ -41,10 +30,42 @@ class RollNumberGeneratorIntegrationTests {
 
     @Test
     void rollNumberShouldStartFromLastSequencePlusOneWhenStudentRecordExistThatMatchingWithGrade() {
-        Student student = Student.create(COMPLETE_INFO_PARAMETERS, rollNumberGenerator).value();
+        Student student = Student.create(applicant(), rollNumberGenerator).value();
         studentManager.save(student);
         assertThat(rollNumberGenerator.newSequence(GRADE))
                 .isEqualTo(student.getRollNumber().plusOne());
+    }
+
+    private NewApplicant applicant() {
+        NewApplicant applicant = new NewApplicantImpl();
+        applicant.setName(name());
+        applicant.setGrade(grade());
+        applicant.setAddress(address());
+        return applicant;
+    }
+
+    private NewApplicantImpl.AddressTypeImpl address() {
+        NewApplicantImpl.AddressTypeImpl address = new NewApplicantImpl.AddressTypeImpl();
+        address.setName("Lamki");
+        address.setStreet("Lamki");
+        address.setCity("Lamki");
+        address.setZipCode("123213");
+        return address;
+    }
+
+    private NewApplicantImpl.GradeTypeImpl grade() {
+        NewApplicantImpl.GradeTypeImpl grade = new NewApplicantImpl.GradeTypeImpl();
+        grade.setGradeType(GRADE.getGradeType().name());
+        grade.setGroup(GRADE.getGradeGroup());
+        return grade;
+    }
+
+    private NewApplicantImpl.NameTypeImpl name() {
+        NewApplicantImpl.NameTypeImpl name = new NewApplicantImpl.NameTypeImpl();
+        name.setFirstName("Bhuwan");
+        name.setMiddleName("Prasad");
+        name.setLastName("Upadhyay");
+        return name;
     }
 
 }

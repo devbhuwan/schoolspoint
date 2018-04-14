@@ -1,6 +1,7 @@
 package io.schoolspointframework.accountancy.domain;
 
-import io.schoolspointframework.student.model.StudentProtos.ApplicantRegisteredPayload;
+
+import io.github.devbhuwan.student.spec.ApplicantRegisteredPayload;
 
 /**
  * @author Bhuwan Prasad Upadhyay

@@ -70,7 +70,7 @@ class RestStudentEndpointsIntegrationTests {
                 .log()
                 .all()
                 .with()
-                .contentType(MediaType.PROTOBUF.type())
+                .contentType(MediaType.JSON_UTF_8.type())
                 .port(serverPort);
     }
 

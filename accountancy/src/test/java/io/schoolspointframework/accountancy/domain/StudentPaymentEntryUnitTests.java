@@ -1,9 +1,9 @@
 package io.schoolspointframework.accountancy.domain;
 
+import io.github.devbhuwan.student.spec.ApplicantRegisteredPayloadImpl;
 import io.schoolspointframework.lang.ddd.Response;
 import org.junit.jupiter.api.Test;
 
-import static io.schoolspointframework.student.model.StudentProtos.ApplicantRegisteredPayload.newBuilder;
 import static java.math.BigDecimal.TEN;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,8 +16,7 @@ class StudentPaymentEntryUnitTests {
     void rejectsIncompleteParams() {
         FeeAccountancy accountancy = (grade) -> TEN;
         Response<StudentPaymentEntry> response
-                = StudentPaymentEntry.create(newBuilder()
-                .buildPartial(), accountancy);
+                = StudentPaymentEntry.create(new ApplicantRegisteredPayloadImpl(), accountancy);
         assertThat(response.errors()).hasSize(2);
     }
 }
