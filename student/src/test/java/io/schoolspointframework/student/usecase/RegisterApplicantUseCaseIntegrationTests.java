@@ -1,44 +1,52 @@
 package io.schoolspointframework.student.usecase;
 
-import io.schoolspointframework.AbstractIntegrationTests;
-import io.schoolspointframework.student.domain.FakeStudentInfoParameters;
+import io.github.devbhuwan.student.spec.NewApplicantImpl;
+import io.schoolspointframework.Schoolspoint;
+import io.schoolspointframework.SchoolspointExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-@DataJpaTest
-class RegisterApplicantUseCaseIntegrationTests extends AbstractIntegrationTests {
-
-    private static final FakeStudentInfoParameters INCOMPLETE_STUDENT_INFO_PARAMETERS = FakeStudentInfoParameters
-            .builder().build();
-    private static final FakeStudentInfoParameters COMPLETE_STUDENT_INFO_PARAMETERS = FakeStudentInfoParameters
-            .builder()
-            .firstName("Bhuwan")
-            .middleName("Prasad")
-            .lastName("Upadhyay")
-            .addressName("Lamki")
-            .street("Lamki")
-            .city("Lamki")
-            .gradeType("TEN")
-            .zipCode("123213")
-            .group("A")
-            .build();
+@ExtendWith(SchoolspointExtension.class)
+@SpringBootTest(classes = Schoolspoint.class)
+class RegisterApplicantUseCaseIntegrationTests {
 
     @Autowired
     private RegisterApplicantUseCase registerApplicantUseCase;
 
     @Test
     void rejectsIncompleteStudentInfoParameters() {
-        assertThat(registerApplicantUseCase.execute(INCOMPLETE_STUDENT_INFO_PARAMETERS).errors()).isNotEmpty();
+        assertThat(registerApplicantUseCase.execute(new NewApplicantImpl()).errors()).isNotEmpty();
     }
 
     @Test
     void saveApplicantCorrectlyWhenPassedCompleteStudentInfoParameters() {
-        assertThat(registerApplicantUseCase.execute(COMPLETE_STUDENT_INFO_PARAMETERS).errors()).isEmpty();
+        NewApplicantImpl applicant = new NewApplicantImpl();
+
+        NewApplicantImpl.NameTypeImpl name = new NewApplicantImpl.NameTypeImpl();
+        applicant.setName(name);
+        name.setFirstName("Bhuwan");
+        name.setMiddleName("Prasad");
+        name.setLastName("Upadhyay");
+
+        NewApplicantImpl.AddressTypeImpl address = new NewApplicantImpl.AddressTypeImpl();
+        applicant.setAddress(address);
+        address.setName("Lamki");
+        address.setStreet("Lamki");
+        address.setCity("Lamki");
+        address.setZipCode("123213");
+
+        NewApplicantImpl.GradeTypeImpl grade = new NewApplicantImpl.GradeTypeImpl();
+        applicant.setGrade(grade);
+        grade.setGradeType("TEN");
+        grade.setGroup("A");
+
+        assertThat(registerApplicantUseCase.execute(applicant).errors()).isEmpty();
     }
 }

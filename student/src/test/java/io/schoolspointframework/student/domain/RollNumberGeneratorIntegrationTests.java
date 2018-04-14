@@ -1,31 +1,23 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.AbstractIntegrationTests;
+import io.github.devbhuwan.student.spec.NewApplicant;
+import io.github.devbhuwan.student.spec.NewApplicantImpl;
+import io.schoolspointframework.Schoolspoint;
+import io.schoolspointframework.SchoolspointExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-@DataJpaTest
-class RollNumberGeneratorIntegrationTests extends AbstractIntegrationTests {
+@SpringBootTest(classes = Schoolspoint.class)
+@ExtendWith(SchoolspointExtension.class)
+class RollNumberGeneratorIntegrationTests {
     private static final Grade GRADE = Grade.create(GradeType.TEN, "A").value();
-    private static final FakeStudentInfoParameters COMPLETE_INFO_PARAMETERS = FakeStudentInfoParameters.builder()
-            .firstName("Bhuwan")
-            .middleName("Prasad")
-            .lastName("Upadhyay")
-            .addressName("Lamki")
-            .street("Lamki")
-            .city("Lamki")
-            .gradeType(GRADE.getGradeType().name())
-            .group(GRADE.getGradeGroup())
-            .zipCode("123213")
-            .group("A")
-            .build();
-
     @Autowired
     private RollNumberGenerator rollNumberGenerator;
     @Autowired
@@ -38,10 +30,42 @@ class RollNumberGeneratorIntegrationTests extends AbstractIntegrationTests {
 
     @Test
     void rollNumberShouldStartFromLastSequencePlusOneWhenStudentRecordExistThatMatchingWithGrade() {
-        Student student = Student.create(COMPLETE_INFO_PARAMETERS, rollNumberGenerator).value();
+        Student student = Student.create(applicant(), rollNumberGenerator).value();
         studentManager.save(student);
         assertThat(rollNumberGenerator.newSequence(GRADE))
                 .isEqualTo(student.getRollNumber().plusOne());
+    }
+
+    private NewApplicant applicant() {
+        NewApplicant applicant = new NewApplicantImpl();
+        applicant.setName(name());
+        applicant.setGrade(grade());
+        applicant.setAddress(address());
+        return applicant;
+    }
+
+    private NewApplicantImpl.AddressTypeImpl address() {
+        NewApplicantImpl.AddressTypeImpl address = new NewApplicantImpl.AddressTypeImpl();
+        address.setName("Lamki");
+        address.setStreet("Lamki");
+        address.setCity("Lamki");
+        address.setZipCode("123213");
+        return address;
+    }
+
+    private NewApplicantImpl.GradeTypeImpl grade() {
+        NewApplicantImpl.GradeTypeImpl grade = new NewApplicantImpl.GradeTypeImpl();
+        grade.setGradeType(GRADE.getGradeType().name());
+        grade.setGroup(GRADE.getGradeGroup());
+        return grade;
+    }
+
+    private NewApplicantImpl.NameTypeImpl name() {
+        NewApplicantImpl.NameTypeImpl name = new NewApplicantImpl.NameTypeImpl();
+        name.setFirstName("Bhuwan");
+        name.setMiddleName("Prasad");
+        name.setLastName("Upadhyay");
+        return name;
     }
 
 }

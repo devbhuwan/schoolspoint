@@ -1,16 +1,16 @@
 package io.schoolspointframework.lang.ddd;
 
+import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import static io.schoolspointframework.lang.ddd.MessageFormats.MUST_BE_NOT_BLANK;
-import static io.schoolspointframework.lang.ddd.MessageFormats.MUST_BE_NOT_NULL;
+import static io.schoolspointframework.lang.ddd.MessageFormats.*;
 import static io.schoolspointframework.lang.ddd.Response.failure;
 import static io.schoolspointframework.lang.ddd.Response.success;
-import static io.schoolspointframework.lang.ddd.ResponseError.isNotEmpty;
-import static io.schoolspointframework.lang.ddd.ResponseError.raiseIfF;
+import static io.schoolspointframework.lang.ddd.ResponseError.*;
+import static java.lang.String.format;
 import static java.util.Objects.nonNull;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
@@ -56,5 +56,18 @@ public class ResponseSpec<V> {
 
     public ResponseSpec<V> raiseIfNull(Object o, String causedBy) {
         return addIfNotEmptyAndThenReturn(raiseIfF(Objects.isNull(o), causedBy, MUST_BE_NOT_NULL));
+    }
+
+    public ResponseSpec<V> raiseIfTrue(boolean signal, String causedBy, String message) {
+        return addIfNotEmptyAndThenReturn(raiseIfM(signal, causedBy, message));
+    }
+
+
+    public ResponseSpec<V> raiseIfFalse(boolean signal, String causedBy, String message) {
+        return raiseIfTrue(!signal, causedBy, message);
+    }
+
+    public ResponseSpec<V> raiseIfLessThenZero(BigDecimal amount, String causedBy) {
+        return raiseIfTrue(BigDecimal.ZERO.compareTo(amount) > 0, causedBy, format(MUST_BE_NOT_LESS_THAN_ZERO, causedBy));
     }
 }

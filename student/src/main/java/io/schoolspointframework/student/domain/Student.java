@@ -1,11 +1,9 @@
 package io.schoolspointframework.student.domain;
 
-import io.schoolspointframework.core.SchoolspointPersistable;
+import io.github.devbhuwan.student.spec.NewApplicant;
 import io.schoolspointframework.lang.ddd.Response;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
+import io.schoolspointframework.lang.ddd.SchoolspointPersistable;
+import lombok.*;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -21,6 +19,7 @@ import static io.schoolspointframework.student.domain.GradeType.valueOfOrElseGet
 @Entity
 @Table(name = "STUDENTS")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(force = true, access = AccessLevel.PACKAGE)
 public class Student extends SchoolspointPersistable<StudentIdentifier> {
 
     static final Student NULL = new Student(Name.NULL, Address.NULL, Grade.NULL, RollNumber.NULL);
@@ -38,10 +37,15 @@ public class Student extends SchoolspointPersistable<StudentIdentifier> {
         this.rollNumber = rollNumber;
     }
 
-    public static Response<Student> create(@NonNull final StudentInfoParameters params, @NonNull final RollNumberGenerator rollNumberGenerator) {
-        Response<Name> name = Name.create(params.getFirstName(), params.getMiddleName(), params.getLastName());
-        Response<Address> address = Address.create(params.getAddressName(), params.getStreet(), params.getCity(), params.getZipCode());
-        Response<Grade> grade = Grade.create(valueOfOrElseGetDefault(params.getGradeType()), params.getGroup());
+    public static Response<Student> create(@NonNull final NewApplicant applicant,
+                                           @NonNull final RollNumberGenerator rollNumberGenerator) {
+        NewApplicant.NameType nameType = applicant.getName();
+        NewApplicant.AddressType addressType = applicant.getAddress();
+        NewApplicant.GradeType gradeType = applicant.getGrade();
+
+        Response<Name> name = Name.create(nameType.getFirstName(), nameType.getMiddleName(), nameType.getLastName());
+        Response<Address> address = Address.create(addressType.getName(), addressType.getStreet(), addressType.getCity(), addressType.getZipCode());
+        Response<Grade> grade = Grade.create(valueOfOrElseGetDefault(gradeType.getGradeType()), gradeType.getGroup());
         Response<RollNumber> rollNumber = RollNumber.create(grade.value(), rollNumberGenerator);
         return Response
                 .of(Student.class, name, address, grade, rollNumber)
@@ -64,4 +68,5 @@ public class Student extends SchoolspointPersistable<StudentIdentifier> {
     public StudentIdentifier getIdentifier() {
         return studentIdentifier;
     }
+
 }

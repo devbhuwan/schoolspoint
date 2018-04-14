@@ -2,7 +2,8 @@ package io.schoolspointframework.lang.ddd;
 
 
 import io.schoolspointframework.lang.ddd.annotations.DddValueObject;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.LinkedHashSet;
 import java.util.Optional;
@@ -18,9 +19,9 @@ import static java.util.stream.Collectors.toSet;
  * @author Bhuwan Prasad Upadhyay
  */
 @DddValueObject
-@Slf4j
 public class Response<V> {
 
+    private static final Logger LOG = LoggerFactory.getLogger(Response.class);
     private final V value;
     private final Set<ResponseError> errors;
 

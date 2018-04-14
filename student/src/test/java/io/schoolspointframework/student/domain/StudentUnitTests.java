@@ -1,5 +1,7 @@
 package io.schoolspointframework.student.domain;
 
+import io.github.devbhuwan.student.spec.NewApplicant;
+import io.github.devbhuwan.student.spec.NewApplicantImpl;
 import io.schoolspointframework.lang.ddd.Response;
 import io.schoolspointframework.lang.ddd.ResponseError;
 import org.junit.jupiter.api.Test;
@@ -11,26 +13,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class StudentUnitTests {
 
-    private static final FakeStudentInfoParameters INCOMPLETE_INFO_PARAMETERS = FakeStudentInfoParameters.builder()
-            .build();
-
-    private static final FakeStudentInfoParameters COMPLETE_INFO_PARAMETERS = FakeStudentInfoParameters.builder()
-            .firstName("Bhuwan")
-            .middleName("Prasad")
-            .lastName("Upadhyay")
-            .addressName("Lamki")
-            .street("Lamki")
-            .city("Lamki")
-            .gradeType("TEN")
-            .zipCode("123213")
-            .group("A")
-            .build();
+    ;
 
     private static final RollNumberGenerator ROLL_NUMBER_GENERATOR = (g) -> (121);
 
     @Test
     void rejectIncompleteStudentInfoParameters() {
-        Response<Student> studentResponse = Student.create(INCOMPLETE_INFO_PARAMETERS, ROLL_NUMBER_GENERATOR);
+        Response<Student> studentResponse = Student.create(new NewApplicantImpl(), ROLL_NUMBER_GENERATOR);
 
         assertThat(studentResponse.value())
                 .hasFieldOrPropertyWithValue("name", Name.NULL)
@@ -42,8 +31,39 @@ class StudentUnitTests {
 
     @Test
     void succeedToCreateStudentWhenGivenCompleteStudentInfoParameters() {
-        Response<Student> studentResponse = Student.create(COMPLETE_INFO_PARAMETERS, ROLL_NUMBER_GENERATOR);
+        Response<Student> studentResponse = Student.create(applicant(), ROLL_NUMBER_GENERATOR);
         assertThat(studentResponse.errors()).isEmpty();
     }
 
+
+    private NewApplicant applicant() {
+        NewApplicant applicant = new NewApplicantImpl();
+        applicant.setName(name());
+        applicant.setGrade(grade());
+        applicant.setAddress(address());
+        return applicant;
+    }
+
+    private NewApplicantImpl.AddressTypeImpl address() {
+        NewApplicantImpl.AddressTypeImpl address = new NewApplicantImpl.AddressTypeImpl();
+        address.setName("Lamki");
+        address.setStreet("Lamki");
+        address.setCity("Lamki");
+        address.setZipCode("123213");
+        return address;
+    }
+
+    private NewApplicantImpl.GradeTypeImpl grade() {
+        NewApplicantImpl.GradeTypeImpl grade = new NewApplicantImpl.GradeTypeImpl();
+        grade.setGradeType("TEN");
+        return grade;
+    }
+
+    private NewApplicantImpl.NameTypeImpl name() {
+        NewApplicantImpl.NameTypeImpl name = new NewApplicantImpl.NameTypeImpl();
+        name.setFirstName("Bhuwan");
+        name.setMiddleName("Prasad");
+        name.setLastName("Upadhyay");
+        return name;
+    }
 }
